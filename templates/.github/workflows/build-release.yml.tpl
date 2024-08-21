@@ -15,8 +15,26 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::602046956384:role/GithubActions-code-upgrade-engine-app-Role
+          aws-region: 'us-east-1'
+      - name: Get Github Secrets from Secrets manager
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          secret-ids: |
+            GITHUB_CODE_UPGRADE_ENGINE_APP_KEY
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: 407179
+          private_key: {{ "${{ secrets.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}" }}
       - name: Checkout
         uses: actions/checkout@v4
+        env:
+          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -37,7 +55,7 @@ jobs:
         run: mise run buildtest
         env:
           # Needs this token for getting access to other repos
-          GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
 
   build-release:
     name: Build and Release
