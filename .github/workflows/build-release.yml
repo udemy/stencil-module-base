@@ -30,8 +30,8 @@ jobs:
           tar -xvf stencil_0.9.0_linux_amd64.tar.gz && \
           chmod a+x stencil && \
           pwd && \
-          rm stencil_0.9.0_linux_amd64.tar.gz \
-          echo . >> $GITHUB_PATH
+          rm stencil_0.9.0_linux_amd64.tar.gz && \
+          echo $(pwd) >> $GITHUB_PATH
       - name: Build Test repo
         shell: bash
         run: mise run buildtest
