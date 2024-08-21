@@ -1,0 +1,54 @@
+version: 0.9.0
+modules:
+    - name: github.com/udemy/eng-team-management
+      url: https://github.com/udemy/eng-team-management
+      version:
+        commit: f482c0756bf01f046fbda3fe5aa451c850d7ce02
+        tag: v0.1.0
+    - name: github.com/udemy/stencil-templatemodule
+      url: ./
+      version:
+        virtual: local
+files:
+    - name: .github/CODEOWNERS
+      template: .github/CODEOWNERS.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .github/workflows/build-release.yml
+      template: .github/workflows/build-release.yml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .github/workflows/titlechecker.yaml
+      template: .github/workflows/titlechecker.yaml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .gitignore
+      template: .gitignore.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .mise.toml
+      template: .mise.toml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .releaserc
+      template: .releaserc.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .vscode/extensions.json
+      template: .vscode/extensions.json.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .vscode/settings.json
+      template: .vscode/settings.json.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: README.md
+      template: README.md.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: manifest.yaml
+      template: manifest.yaml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: package.json
+      template: package.json.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: renovate.json
+      template: renovate.json.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: test/stencil.yaml
+      template: test/stencil.yaml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: yarn.lock
+      template: yarn.lock.tpl
+      module: github.com/udemy/stencil-templatemodule

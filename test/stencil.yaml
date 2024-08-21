@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rgst-io/stencil/v0.6.0/schemas/stencil.jsonschema.json
+name: stencil-templatemodule-test
+arguments:
+  description: Test folder for validating changes to stencil-templatemodule
+  owner: services
+  # <<Stencil::Block(arguments)>>
+
+  # <</Stencil::arguments>>
+modules:
+  - name: github.com/udemy/stencil-templatemodule
+replacements:
+  github.com/udemy/stencil-templatemodule: ../
