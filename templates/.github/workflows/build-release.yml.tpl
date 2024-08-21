@@ -10,6 +10,9 @@ on:
 
 permissions: write-all
 
+env:
+  GH_ROLE_ARN: arn:aws:iam::576384128468:role/GithubActions-github-actions-services-repos-Role
+
 jobs:
   build-and-test:
     name: Build and Test
@@ -18,23 +21,17 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::602046956384:role/GithubActions-code-upgrade-engine-app-Role
+          role-to-assume: {{ "${{ env.GH_ROLE_ARN }}" }}
           aws-region: 'us-east-1'
       - name: Get Github Secrets from Secrets manager
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: |
-            GITHUB_CODE_UPGRADE_ENGINE_APP_KEY
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app_id: 407179
-          private_key: {{ "${{ secrets.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}" }}
+            CODEOWNER_CHECK_TOKEN_FOR_PROTO
       - name: Checkout
         uses: actions/checkout@v4
         env:
-          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
+          GITHUB_TOKEN: {{ "${{ env.CODEOWNER_CHECK_TOKEN_FOR_PROTO }}" }}
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -55,7 +52,7 @@ jobs:
         run: mise run buildtest
         env:
           # Needs this token for getting access to other repos
-          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
+          GITHUB_TOKEN: {{ "${{ env.CODEOWNER_CHECK_TOKEN_FOR_PROTO }}" }}
 
   build-release:
     name: Build and Release
