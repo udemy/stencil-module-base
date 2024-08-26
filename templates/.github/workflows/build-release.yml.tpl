@@ -4,6 +4,7 @@ on:
     branches:
       - 'main'
     paths:
+      - '.github/workflows/build-release.yml'
       - 'templates/**'
       - 'manifest.yaml'
       - 'stencil.yaml'
