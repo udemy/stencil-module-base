@@ -36,6 +36,7 @@ jobs:
         with:
           app_id: 407179
           private_key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
+          owner: udemy
       - name: Set git Credentials
         run: |
           git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
