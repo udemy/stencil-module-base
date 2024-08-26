@@ -49,7 +49,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Stencil
-        shell: bash
         run: | # install the stencil binary
           wget https://github.com/rgst-io/stencil/releases/download/v0.9.0/stencil_0.9.0_linux_amd64.tar.gz && \
           tar -xvf stencil_0.9.0_linux_amd64.tar.gz && \
@@ -57,9 +56,12 @@ jobs:
           pwd && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
+      - name: Testing
+        run: |
+          pwd
+          ls
       - name: Build Test repo
-        shell: bash
-        run: mise run buildtest
+      run: mise run buildtest
 
   build-release:
     name: Build and Release
