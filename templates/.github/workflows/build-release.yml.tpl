@@ -35,7 +35,7 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           app_id: 407179
-          private_key: {{ "${{ secrets.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}" }}
+          private_key: {{ "${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}" }}
       - name: Checkout
         uses: actions/checkout@v4
         env:
