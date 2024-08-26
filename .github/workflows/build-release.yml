@@ -34,8 +34,8 @@ jobs:
         id: generate_token
         uses: actions/create-github-app-token@v1
         with:
-          app_id: 407179
-          private_key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
+          app-id: 407179
+          private-key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
           owner: udemy
       - name: Set git Credentials
         run: |
@@ -45,8 +45,6 @@ jobs:
           git clone https://github.com/udemy/eng-team-management.git
       - name: Checkout
         uses: actions/checkout@v4
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -62,11 +60,12 @@ jobs:
           pwd && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
+      - name: Set git Credentials
+        run: |
+          git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
       - name: Build Test repo
         shell: bash
         run: mise run buildtest
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
   build-release:
     name: Build and Release
