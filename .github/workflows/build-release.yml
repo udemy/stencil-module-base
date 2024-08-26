@@ -38,10 +38,8 @@ jobs:
           private_key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
       - name: Set git Credentials
         run: |
-          git config --global --add url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github".insteadOf ssh://git@github
-          git config --global --add url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github".insteadOf https://github
-          git config --global --add url."https://x-access-token:${{ steps.generate_token.outputs.token }}@github".insteadOf git@github
-      - name: Set git Credentials
+          git config --global "url.https://${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
+      - name: Test git Credentials
         run: |
           git clone https://github.com/udemy/eng-team-management.git
       - name: Checkout
