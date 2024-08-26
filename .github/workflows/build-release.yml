@@ -40,9 +40,6 @@ jobs:
       - name: Set git Credentials
         run: |
           git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
-      - name: Test git Credentials
-        run: |
-          git clone https://github.com/udemy/eng-team-management.git
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Tool Versions
@@ -60,9 +57,6 @@ jobs:
           pwd && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
-      - name: Set git Credentials
-        run: |
-          git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
       - name: Build Test repo
         shell: bash
         run: mise run buildtest
