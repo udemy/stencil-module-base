@@ -38,7 +38,7 @@ jobs:
           private_key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
       - name: Set git Credentials
         run: |
-          git config --global "url.https://${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
+          git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
       - name: Test git Credentials
         run: |
           git clone https://github.com/udemy/eng-team-management.git
