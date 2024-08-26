@@ -43,6 +43,8 @@ jobs:
           git config --global "url.https://udemy:${{ steps.generate_token.outputs.token }}@github.com/.insteadOf" https://github.com/
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
