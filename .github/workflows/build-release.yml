@@ -36,6 +36,11 @@ jobs:
         with:
           app_id: 407179
           private_key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
+      - name: Set git Credentials
+        run: |
+          git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf ssh://git@github
+          git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf https://github
+          git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf git@github
       - name: Checkout
         uses: actions/checkout@v4
         env:
@@ -59,7 +64,6 @@ jobs:
         shell: bash
         run: mise run buildtest
         env:
-          # Needs this token for getting access to other repos
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
   build-release:
