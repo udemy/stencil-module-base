@@ -63,6 +63,7 @@ jobs:
         run: |
           pwd
           ls
+          git clone https://github.com/udemy/eng-team-management
           git ls-remote https://github.com/udemy/eng-team-management
       - name: Build Test repo
         run: mise run buildtest
