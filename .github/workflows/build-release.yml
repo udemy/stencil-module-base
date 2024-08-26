@@ -59,7 +59,6 @@ jobs:
           wget https://github.com/rgst-io/stencil/releases/download/v0.9.0/stencil_0.9.0_linux_amd64.tar.gz && \
           tar -xvf stencil_0.9.0_linux_amd64.tar.gz && \
           chmod a+x stencil && \
-          pwd && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
       - name: Build Test repo
@@ -82,7 +81,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Semantic-Release
-        run: npm ci
+        run: yarn install
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

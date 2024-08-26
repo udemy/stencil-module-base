@@ -1,4 +1,7 @@
 name: github.com/udemy/{{ .Config.Name }}
+postRunCommand:
+  - name: yarn install
+    command: yarn install
 arguments:
   description:
     required: true

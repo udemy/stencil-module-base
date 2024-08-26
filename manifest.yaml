@@ -1,4 +1,7 @@
 name: github.com/udemy/stencil-templatemodule
+postRunCommand:
+  - name: yarn install
+    command: yarn install
 arguments:
   description:
     required: true

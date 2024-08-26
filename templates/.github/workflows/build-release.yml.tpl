@@ -43,6 +43,9 @@ jobs:
           git config --global "url.https://udemy:{{ "${{ steps.generate_token.outputs.token }}" }}@github.com/.insteadOf" https://github.com/
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          token: {{ "${{ steps.generate_token.outputs.token }}" }}
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -50,17 +53,18 @@ jobs:
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
       - name: Install Stencil
-        shell: bash
         run: | # install the stencil binary
+          mkdir {{ "${{ runner.temp }}/stencil" }}
+          cd {{ "${{ runner.temp }}/stencil" }}
           wget https://github.com/rgst-io/stencil/releases/download/v0.9.0/stencil_0.9.0_linux_amd64.tar.gz && \
           tar -xvf stencil_0.9.0_linux_amd64.tar.gz && \
           chmod a+x stencil && \
-          pwd && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
       - name: Build Test repo
-        shell: bash
         run: mise run buildtest
+        env:
+          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
 
   build-release:
     name: Build and Release
@@ -77,7 +81,7 @@ jobs:
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
       - name: Install Semantic-Release
-        run: npm ci
+        run: yarn install
       - name: Release
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}

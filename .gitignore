@@ -37,5 +37,5 @@ vendor
 .DS_Store
 
 # Ignore literally everything other than the stencil.yaml file in the test dir
-/test/*
-!/test/stencil.yaml
+test/*
+!test/stencil.yaml
