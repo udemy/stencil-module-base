@@ -65,6 +65,9 @@ jobs:
         run: mise run buildtest
         env:
           GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
+      # <<Stencil::Block(buildteststeps)>>
+{{ file.Block "arguments" }}
+      # <</Stencil::Block>>
 
   build-release:
     name: Build and Release

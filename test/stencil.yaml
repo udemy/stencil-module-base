@@ -5,7 +5,7 @@ arguments:
   owner: services
   # <<Stencil::Block(arguments)>>
 
-  # <</Stencil::arguments>>
+  # <</Stencil::Block>>
 modules:
   - name: github.com/udemy/stencil-templatemodule
 replacements:

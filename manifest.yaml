@@ -2,6 +2,9 @@ name: github.com/udemy/stencil-templatemodule
 postRunCommand:
   - name: yarn install
     command: yarn install
+  # <<Stencil::Block(postruncommands)>>
+
+  # <</Stencil::Block>>
 arguments:
   description:
     required: true
@@ -13,5 +16,11 @@ arguments:
     description: Team ID (see eng-team-management repo) for the owner of the template module
     schema:
       type: string
+  # <<Stencil::Block(arguments)>>
+
+  # <</Stencil::Block>>
 modules:
   - name: github.com/udemy/eng-team-management
+  # <<Stencil::Block(modules)>>
+
+  # <</Stencil::Block>>

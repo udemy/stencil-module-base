@@ -5,7 +5,7 @@ arguments:
   owner: {{ stencil.Arg "owner" }}
   # <<Stencil::Block(arguments)>>
 {{ file.Block "arguments" }}
-  # <</Stencil::arguments>>
+  # <</Stencil::Block>>
 modules:
   - name: github.com/udemy/{{ .Config.Name }}
 replacements:
