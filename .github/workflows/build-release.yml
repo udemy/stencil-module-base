@@ -61,7 +61,7 @@ jobs:
           pwd
           ls
       - name: Build Test repo
-      run: mise run buildtest
+        run: mise run buildtest
 
   build-release:
     name: Build and Release
