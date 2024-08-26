@@ -8,8 +8,6 @@ on:
       - 'manifest.yaml'
       - 'stencil.yaml'
 
-permissions: write-all
-
 env:
   GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-code-upgrade-engine-app-Role
 
@@ -17,6 +15,10 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
