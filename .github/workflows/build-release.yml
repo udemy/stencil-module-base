@@ -41,6 +41,9 @@ jobs:
           git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf ssh://git@github
           git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf https://github
           git config --global --add url."https://${{ steps.generate_token.outputs.token }}:x-oauth-basic@github".insteadOf git@github
+      - name: Set git Credentials
+        run: |
+          git clone https://github.com/udemy/eng-team-management.git
       - name: Checkout
         uses: actions/checkout@v4
         env:
