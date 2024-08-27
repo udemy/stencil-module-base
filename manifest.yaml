@@ -24,3 +24,6 @@ modules:
   # <<Stencil::Block(modules)>>
 
   # <</Stencil::Block>>
+# <<Stencil::Block(extra)>>
+
+# <</Stencil::Block>>

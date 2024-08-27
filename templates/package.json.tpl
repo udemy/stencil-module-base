@@ -1,5 +1,5 @@
 {
-  "name": "stencil-kotlin",
+  "name": "{{ .Config.Name }}",
   "devDependencies": {
     "semantic-release": "23.0.8"
   },

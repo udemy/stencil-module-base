@@ -39,3 +39,7 @@ vendor
 # Ignore literally everything other than the stencil.yaml file in the test dir
 test/*
 !test/stencil.yaml
+
+# <<Stencil::Block(ignores)>>
+
+# <</Stencil::Block>>

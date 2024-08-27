@@ -1,5 +1,5 @@
 {
-  "name": "stencil-kotlin",
+  "name": "stencil-templatemodule",
   "devDependencies": {
     "semantic-release": "23.0.8"
   },

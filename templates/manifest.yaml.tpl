@@ -24,3 +24,6 @@ modules:
   # <<Stencil::Block(modules)>>
 {{ file.Block "modules" }}
   # <</Stencil::Block>>
+# <<Stencil::Block(extra)>>
+{{ file.Block "extra" }}
+# <</Stencil::Block>>
