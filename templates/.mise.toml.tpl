@@ -8,7 +8,7 @@ dir = "test"
 run = [
   "stencil",
   "mise install",
-  # <<Stencil::Block(teststeps)>>
+  ## <<Stencil::Block(teststeps)>>
 {{ file.Block "teststeps" }}
-  # <</Stencil::Block>>
+  ## <</Stencil::Block>>
 ]

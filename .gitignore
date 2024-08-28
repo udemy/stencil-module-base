@@ -40,6 +40,6 @@ vendor
 test/*
 !test/stencil.yaml
 
-# <<Stencil::Block(ignores)>>
+## <<Stencil::Block(ignores)>>
 
-# <</Stencil::Block>>
+## <</Stencil::Block>>

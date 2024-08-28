@@ -3,9 +3,9 @@ name: stencil-templatemodule-test
 arguments:
   description: Test folder for validating changes to stencil-templatemodule
   owner: services
-  # <<Stencil::Block(arguments)>>
+  ## <<Stencil::Block(arguments)>>
 
-  # <</Stencil::Block>>
+  ## <</Stencil::Block>>
 modules:
   - name: github.com/udemy/stencil-templatemodule
 replacements:
