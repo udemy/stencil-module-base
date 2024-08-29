@@ -1,9 +1,8 @@
 name: github.com/udemy/stencil-templatemodule
 postRunCommand:
+  ## <<Stencil::Block(postruncommands)>>
   - name: yarn install
     command: yarn install
-  ## <<Stencil::Block(postruncommands)>>
-
   ## <</Stencil::Block>>
 arguments:
   description:
