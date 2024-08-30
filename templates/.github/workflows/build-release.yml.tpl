@@ -61,6 +61,9 @@ jobs:
           chmod a+x stencil && \
           rm stencil_0.9.0_linux_amd64.tar.gz && \
           echo $(pwd) >> $GITHUB_PATH
+      ## <<Stencil::Block(buildtestauth)>>
+{{ file.Block "buildtestauth" }}
+      ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
         env:
