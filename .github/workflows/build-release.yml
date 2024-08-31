@@ -84,6 +84,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
+        with:
+          experimental: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Semantic-Release
