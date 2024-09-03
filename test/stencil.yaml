@@ -2,7 +2,7 @@
 name: stencil-templatemodule-test
 arguments:
   description: Test folder for validating changes to stencil-templatemodule
-  owner: services
+  owner: platform
   ## <<Stencil::Block(arguments)>>
 
   ## <</Stencil::Block>>
