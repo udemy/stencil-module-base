@@ -9,4 +9,4 @@ arguments:
 modules:
   - name: github.com/udemy/stencil-templatemodule
 replacements:
-  github.com/udemy/stencil-templatemodule: ../
+  github.com/udemy/stencil-templatemodule: ../..

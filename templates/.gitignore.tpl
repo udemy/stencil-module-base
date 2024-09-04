@@ -36,9 +36,9 @@ vendor
 # macOS
 .DS_Store
 
-# Ignore literally everything other than the stencil.yaml file in the test dir
-test/*
-!test/stencil.yaml
+# Ignore literally everything other than the stencil.yaml file in the tests dir
+tests/*
+!tests/**/stencil.yaml
 
 ## <<Stencil::Block(ignores)>>
 {{ file.Block "ignores" }}
