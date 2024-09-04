@@ -7,12 +7,12 @@ postRunCommand:
 arguments:
   description:
     required: true
-    description: Friendly-but-short description string for the template module
+    description: Friendly-but-short description string for the repository
     schema:
       type: string
   owner:
     required: true
-    description: Team ID (see eng-team-management repo) for the owner of the template module
+    description: Team ID (see eng-team-management repo) for the owner of the repository
     schema:
       type: string
   ## <<Stencil::Block(arguments)>>
