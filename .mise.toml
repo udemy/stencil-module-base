@@ -13,7 +13,7 @@ run = """
 #!/usr/bin/env bash
 cd tests
 for dir in ./*/ ; do
-    (cd "$dir" && /home/runner/work/stencil-templatemodule/stencil-templatemodule/stencil);
+    (cd "$dir" && stencil);
 done
 """
 
