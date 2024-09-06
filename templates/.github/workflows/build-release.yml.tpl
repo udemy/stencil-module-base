@@ -24,13 +24,13 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::602046956384:role/GithubActions-code-upgrade-engine-app-Role
+          role-to-assume: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
           aws-region: 'us-east-1'
       - name: Get Github Secrets from Secrets manager
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: |
-            GITHUB_CODE_UPGRADE_ENGINE_APP_KEY
+            GITHUB_CUE_APP_KEY
       ## <<Stencil::Block(getMoreCiSecrets)>>
 
       ## <</Stencil::Block>>
