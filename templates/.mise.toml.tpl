@@ -13,7 +13,7 @@ run = """
 #!/usr/bin/env bash
 cd tests
 for dir in ./*/ ; do
-    (cd "$dir" && /home/runner/work/{{ .Config.Name }}/{{ .Config.Name }}/stencil);
+    (cd "$dir" && stencil);
 done
 """
 
