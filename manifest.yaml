@@ -1,4 +1,8 @@
 name: github.com/udemy/stencil-templatemodule
+dirReplacements:
+  ## <<Stencil::Block(dirReplacements)>>
+
+  ## <</Stencil::Block>>
 postRunCommand:
   ## <<Stencil::Block(postruncommands)>>
   - name: yarn install

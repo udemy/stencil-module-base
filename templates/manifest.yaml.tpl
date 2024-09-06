@@ -1,4 +1,8 @@
 name: github.com/udemy/{{ .Config.Name }}
+dirReplacements:
+  ## <<Stencil::Block(dirReplacements)>>
+{{ file.Block "dirReplacements" }}
+  ## <</Stencil::Block>>
 postRunCommand:
   ## <<Stencil::Block(postruncommands)>>
 {{ file.Block "postruncommands" }}

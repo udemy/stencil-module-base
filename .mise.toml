@@ -26,5 +26,3 @@ run = """
 echo "Tests are running"
 """
 ## <</Stencil::Block>>
-
-
