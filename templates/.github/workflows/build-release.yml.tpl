@@ -73,7 +73,7 @@ jobs:
         env:
           GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
           ## <<Stencil::Block(runTestEnvVars)>>
-            {{ file.Block "runTestEnvVars" }}
+{{ file.Block "runTestEnvVars" }}
           ## <</Stencil::Block>>
       ## <<Stencil::Block(buildteststeps)>>
 {{ file.Block "arguments" }}
