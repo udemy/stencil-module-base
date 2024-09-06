@@ -31,6 +31,9 @@ jobs:
         with:
           secret-ids: |
             GITHUB_CODE_UPGRADE_ENGINE_APP_KEY
+      ## <<Stencil::Block(getMoreCiSecrets)>>
+
+      ## <</Stencil::Block>>
       - name: Generate a token
         id: generate_token
         uses: actions/create-github-app-token@v1
@@ -69,6 +72,9 @@ jobs:
         run: mise run runtest
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          ## <<Stencil::Block(runTestEnvVars)>>
+                                    
+          ## <</Stencil::Block>>
       ## <<Stencil::Block(buildteststeps)>>
 
       ## <</Stencil::Block>>
