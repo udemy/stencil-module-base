@@ -10,7 +10,7 @@ on:
       - 'stencil.yaml'
 
 env:
-  GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-code-upgrade-engine-app-Role
+  GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
 
 jobs:
   build-and-test:
