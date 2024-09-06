@@ -39,7 +39,7 @@ jobs:
         uses: actions/create-github-app-token@v1
         with:
           app-id: 407179
-          private-key: ${{ env.GITHUB_CODE_UPGRADE_ENGINE_APP_KEY }}
+          private-key: ${{ env.GITHUB_CUE_APP_KEY }}
           owner: udemy
       - name: Set git Credentials
         run: |
@@ -73,7 +73,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           ## <<Stencil::Block(runTestEnvVars)>>
-                                                
+                                                            
           ## <</Stencil::Block>>
       ## <<Stencil::Block(buildteststeps)>>
 
