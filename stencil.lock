@@ -1,4 +1,4 @@
-version: 0.10.0
+version: 0.9.0
 modules:
     - name: github.com/udemy/eng-team-management
       url: https://github.com/udemy/eng-team-management
@@ -24,6 +24,12 @@ files:
       module: github.com/udemy/stencil-templatemodule
     - name: .mise.toml
       template: .mise.toml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .mise/tasks/buildtest.sh
+      template: .mise/tasks/buildtest.sh.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: .mise/tasks/runtest.sh
+      template: .mise/tasks/runtest.sh.tpl
       module: github.com/udemy/stencil-templatemodule
     - name: .releaserc
       template: .releaserc.tpl
