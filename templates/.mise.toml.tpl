@@ -30,5 +30,3 @@ echo "Tests are running"
 {{ file.Block "runTests" }}
 {{- end }}
 ## <</Stencil::Block>>
-
-
