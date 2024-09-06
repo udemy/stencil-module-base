@@ -32,7 +32,7 @@ jobs:
           secret-ids: |
             GITHUB_CUE_APP_KEY
       ## <<Stencil::Block(getMoreCiSecrets)>>
-
+{{ file.Block "getMoreCiSecrets" }}
       ## <</Stencil::Block>>
       - name: Generate a token
         id: generate_token
