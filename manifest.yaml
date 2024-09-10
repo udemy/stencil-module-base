@@ -20,7 +20,11 @@ arguments:
     schema:
       type: string
   ## <<Stencil::Block(arguments)>>
-
+  buildAndTestRunner:
+    required: false
+    description: The github actions runner to use for the build and test CI job
+    schema:
+      type: string
   ## <</Stencil::Block>>
 modules:
   - name: github.com/udemy/eng-team-management
