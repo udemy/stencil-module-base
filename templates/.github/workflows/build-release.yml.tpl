@@ -1,11 +1,18 @@
 name: build-release
 on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
   push:
     branches:
       - 'main'
     paths:
       - '.github/workflows/build-release.yml'
       - 'templates/**'
+      - 'tests/**'
       - 'manifest.yaml'
       - 'stencil.yaml'
 
@@ -81,6 +88,7 @@ jobs:
 
   build-release:
     name: Build and Release
+    if: {{ "${{ github.ref == 'refs/heads/main' }}" }} # Only run on main branch commits
     needs: build-and-test
     runs-on: ubuntu-latest
     permissions: write-all

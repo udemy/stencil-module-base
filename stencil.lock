@@ -1,10 +1,10 @@
-version: 0.9.0
+version: 0.10.0
 modules:
     - name: github.com/udemy/eng-team-management
       url: https://github.com/udemy/eng-team-management
       version:
-        commit: 1bd17a8ee2ddad624844cd4682283560b5f5bc4e
-        tag: v0.1.5
+        commit: 4d5cf0c23526a24ccc553310dba01b1fbddc0911
+        tag: v0.1.8
     - name: github.com/udemy/stencil-templatemodule
       url: ./
       version:
@@ -54,6 +54,12 @@ files:
       module: github.com/udemy/stencil-templatemodule
     - name: test/stencil.yaml
       template: test/stencil.yaml.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: tests/README.md
+      template: tests/README.md.tpl
+      module: github.com/udemy/stencil-templatemodule
+    - name: tests/basic/stencil.yaml
+      template: tests/basic/stencil.yaml.tpl
       module: github.com/udemy/stencil-templatemodule
     - name: yarn.lock
       template: yarn.lock.tpl
