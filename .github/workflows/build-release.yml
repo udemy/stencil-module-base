@@ -67,7 +67,6 @@ jobs:
         with:
           github-token: ${{ github.token }}
           version: 'latest'
-          binary-dir: ${{ runner.temp }}
       ## <<Stencil::Block(buildtestauth)>>
 
       ## <</Stencil::Block>>
