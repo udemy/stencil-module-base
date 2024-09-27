@@ -1,10 +1,10 @@
-version: 0.10.0
+version: 0.10.2
 modules:
     - name: github.com/udemy/eng-team-management
       url: https://github.com/udemy/eng-team-management
       version:
-        commit: 4d5cf0c23526a24ccc553310dba01b1fbddc0911
-        tag: v0.1.8
+        commit: 8eacc46158f50de1a13f754b4e5634749de3252c
+        tag: v0.2.5
     - name: github.com/udemy/stencil-templatemodule
       url: ./
       version:
