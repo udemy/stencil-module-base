@@ -20,11 +20,19 @@ arguments:
     schema:
       type: string
   ## <<Stencil::Block(arguments)>>
+  nativeModule:
+    required: false
+    description: Does this template module include native module golang code
+    schema:
+      type: boolean
   buildAndTestRunner:
     required: false
     description: The github actions runner to use for the build and test CI job
     schema:
       type: string
+  packageJsonDeps:
+    required: false
+    description: The package.json dependencies to add to the generated package.json
   ## <</Stencil::Block>>
 modules:
   - name: github.com/udemy/eng-team-management

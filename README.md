@@ -10,4 +10,5 @@ In the `arguments` section of the `manifest.yaml` file, you can specify the foll
 | -------------------- | --------------- | -------------------------------------------------------------- |
 | `description`        | Required        | Friendly-but-short description string for the frontend app     |
 | `owner`              | Required        | Pod or Portfolio ID for the owner of the frontend app          |
+| `nativeModule`       | `false`         | Does this template module include native module golang code    |
 | `buildAndTestRunner` | `ubuntu-latest` | The github actions runner to use for the build and test CI job |

@@ -11,6 +11,11 @@ on:
       - 'main'
     paths:
       - '.github/workflows/build-release.yml'
+      - 'cmd/**'
+      - 'pkg/**'
+      - 'internal/**'
+      - 'go.mod'
+      - 'go.sum'
       - 'templates/**'
       - 'tests/**'
       - 'manifest.yaml'
@@ -56,6 +61,9 @@ jobs:
         with:
           persist-credentials: false
           token: ${{ steps.generate_token.outputs.token }}
+          # These two required for builds to successfully amend commits
+          ref: ${{ github.head_ref }}
+          fetch-depth: 2
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -74,6 +82,9 @@ jobs:
         run: mise run buildtest
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          ## <<Stencil::Block(buildTestEnvVars)>>
+
+          ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         env:
@@ -95,7 +106,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
+          fetch-tags: true
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set git User
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -108,3 +125,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+  ## <<Stencil::Block(extraActions)>>
+
+  ## <</Stencil::Block>>
