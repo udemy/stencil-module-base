@@ -75,3 +75,7 @@ echo "Tests are running"
 {{ file.Block "runTests" }}
 {{- end }}
 ## <</Stencil::Block>>
+
+## <<Stencil::Block(tasks)>>
+{{ file.Block "tasks" }}
+## <</Stencil::Block>>
