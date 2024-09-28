@@ -11,10 +11,17 @@ on:
       - 'main'
     paths:
       - '.github/workflows/build-release.yml'
+      - 'cmd/**'
+      - 'pkg/**'
+      - 'internal/**'
+      - 'go.mod'
+      - 'go.sum'
       - 'templates/**'
       - 'tests/**'
       - 'manifest.yaml'
       - 'stencil.yaml'
+      - '.goreleaser.yaml'
+      - '.mise.toml'
 
 env:
   GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
@@ -56,6 +63,9 @@ jobs:
         with:
           persist-credentials: false
           token: {{ "${{ steps.generate_token.outputs.token }}" }}
+          # These two required for builds to successfully amend commits
+          ref: {{ "${{ github.head_ref }}" }}
+          fetch-depth: 2
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
@@ -67,6 +77,36 @@ jobs:
         with:
           github-token: {{ "${{ github.token }}" }}
           version: 'latest'
+{{- if stencil.Arg "nativeModule" }}
+      - name: Get Go directories
+        id: go
+        run: |
+          echo "cache_dir=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+          echo "mod_cache_dir=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: {{ "${{ steps.go.outputs.cache_dir }}" }}
+          key: {{ "${{ github.workflow }}-${{ runner.os }}-go-build-cache-${{ hashFiles('**/go.sum') }}" }}
+      - uses: actions/cache@v4
+        with:
+          path: {{ "${{ steps.go.outputs.mod_cache_dir }}" }}
+          key: {{ "${{ github.workflow }}-${{ runner.os }}-go-mod-cache-${{ hashFiles('go.sum') }}" }}
+      - name: Lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+          # We already use setup-go's pkg cache and actions/cache's build cache, so don't double-up
+          skip-pkg-cache: true
+          skip-build-cache: true
+          args: --timeout=6m
+      - name: Build Go binary
+        run: mise run build
+      - name: Run Go Tests
+        run: go run gotest.tools/gotestsum@v1.11.0
+        ## <<Stencil::Block(gotestvars)>>
+{{ file.Block "gotestvars" }}
+        ## <</Stencil::Block>>
+{{- end }}
       ## <<Stencil::Block(buildtestauth)>>
 {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
@@ -74,6 +114,9 @@ jobs:
         run: mise run buildtest
         env:
           GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
+          ## <<Stencil::Block(buildTestEnvVars)>>
+{{ file.Block "buildTestEnvVars" }}
+          ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         env:
@@ -95,16 +138,70 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
+          fetch-tags: true
           token: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+      - name: Set git User
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
       - name: Install Tool Versions
         uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
         with:
           experimental: true
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+{{- if stencil.Arg "nativeModule" }}
+      - name: Get Go directories
+        id: go
+        run: |
+          echo "cache_dir=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+          echo "mod_cache_dir=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: {{ "${{ steps.go.outputs.cache_dir }}" }}
+          key: {{ "${{ github.workflow }}-${{ runner.os }}-go-build-cache-${{ hashFiles('**/go.sum') }}" }}
+      - uses: actions/cache@v4
+        with:
+          path: {{ "${{ steps.go.outputs.mod_cache_dir }}" }}
+          key: {{ "${{ github.workflow }}-${{ runner.os }}-go-mod-cache-${{ hashFiles('go.sum') }}" }}
+      - name: Retrieve goreleaser version
+        run: |-
+          echo "version=$(mise current goreleaser)" >> "$GITHUB_OUTPUT"
+        id: goreleaser
+      - name: Get next version
+        id: next_version
+        run: |-
+          get-next-version --target github-action
+      - name: Create Tag
+        if: {{ "${{ steps.next_version.outputs.hasNextVersion == 'true' }}" }}
+        run: |-
+          git tag -a {{ "\"v${{ steps.next_version.outputs.version }}\" -m \"Release v${{ steps.next_version.outputs.version }}\"" }}
+      - name: Generate CHANGELOG
+        if: {{ "${{ steps.next_version.outputs.hasNextVersion == 'true' }}" }}
+        run: |-
+          mise run changelog
+      - name: Create release artifacts and Github Release
+        if: {{ "${{ steps.next_version.outputs.hasNextVersion == 'true' }}" }}
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: {{ "v${{ steps.goreleaser.outputs.version }}" }}
+          args: release --release-notes CHANGELOG.md --clean
+        env:
+          GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+          ## <<Stencil::Block(goreleaserEnvVars)>>
+{{ file.Block "goreleaserEnvVars" }}
+          ## <</Stencil::Block>>
+{{- else }}
       - name: Install Semantic-Release
         run: yarn install
       - name: Release
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
         run: npx semantic-release
+{{- end }}
+
+  ## <<Stencil::Block(extraActions)>>
+{{ file.Block "extraActions" }}
+  ## <</Stencil::Block>>

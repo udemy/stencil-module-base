@@ -1,4 +1,9 @@
 name: github.com/udemy/{{ .Config.Name }}
+{{- if stencil.Arg "nativeModule" }}
+type: templates,extension
+{{- else }}
+type: templates
+{{- end }}
 dirReplacements:
   ## <<Stencil::Block(dirReplacements)>>
 {{ file.Block "dirReplacements" }}
