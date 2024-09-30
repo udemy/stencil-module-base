@@ -8,9 +8,7 @@ name: {{ .Config.Name }}-test
 arguments:
   description: Test folder for validating changes to {{ .Config.Name }}
   owner: {{ stencil.Arg "owner"}}
-  ## <<Stencil::Block(arguments)>>
-{{ file.Block "arguments" }}
-  ## <</Stencil::Block>>
+  templateModule: true
 modules:
   - name: github.com/udemy/{{ .Config.Name }}
 replacements:

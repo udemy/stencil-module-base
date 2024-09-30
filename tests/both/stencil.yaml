@@ -1,11 +1,10 @@
 # yaml-language-server: $schema=https://stencil.rgst.io/static/stencil.jsonschema.json
 name: stencil-templatemodule-test
 arguments:
-  description: Test folder for validating changes to stencil-templatemodule
+  description: Test native+template project for validating changes to stencil-templatemodule
   owner: platform
-  ## <<Stencil::Block(arguments)>>
-
-  ## <</Stencil::Block>>
+  templateModule: true
+  nativeModule: true
 modules:
   - name: github.com/udemy/stencil-templatemodule
 replacements:

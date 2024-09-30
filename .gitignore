@@ -46,7 +46,13 @@ tests/*
 !tests/README.md
 
 ## <<Stencil::Block(ignores)>>
-!tests/basic
-tests/basic/*
-!tests/basic/stencil.yaml
+!tests/template
+tests/template/*
+!tests/template/stencil.yaml
+!tests/native
+tests/native/*
+!tests/native/stencil.yaml
+!tests/both
+tests/both/*
+!tests/both/stencil.yaml
 ## <</Stencil::Block>>

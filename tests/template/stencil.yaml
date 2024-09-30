@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://stencil.rgst.io/static/stencil.jsonschema.json
+name: stencil-templatemodule-test
+arguments:
+  description: Test template module for validating changes to stencil-templatemodule
+  owner: platform
+  templateModule: true
+modules:
+  - name: github.com/udemy/stencil-templatemodule
+replacements:
+  github.com/udemy/stencil-templatemodule: ../../
