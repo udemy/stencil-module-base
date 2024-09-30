@@ -10,18 +10,22 @@ on:
     branches:
       - 'main'
     paths:
+      - 'stencil.yaml'
+      - 'manifest.yaml'
+      - '.mise.toml'
       - '.github/workflows/build-release.yml'
+{{- if stencil.Arg "templateModule" }}
+      - 'templates/**'
+      - 'tests/**'
+{{- end }}
+{{- if stencil.Arg "nativeModule" }}
+      - 'go.mod'
+      - 'go.sum'
+      - '.goreleaser.yaml'
       - 'cmd/**'
       - 'pkg/**'
       - 'internal/**'
-      - 'go.mod'
-      - 'go.sum'
-      - 'templates/**'
-      - 'tests/**'
-      - 'manifest.yaml'
-      - 'stencil.yaml'
-      - '.goreleaser.yaml'
-      - '.mise.toml'
+{{- end }}
 
 env:
   GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role

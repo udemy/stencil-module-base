@@ -3,8 +3,8 @@ modules:
     - name: github.com/udemy/eng-team-management
       url: https://github.com/udemy/eng-team-management
       version:
-        commit: 8eacc46158f50de1a13f754b4e5634749de3252c
-        tag: v0.2.5
+        commit: 4701335561a29ead510007394a13085da1f088e1
+        tag: v0.3.0
     - name: github.com/udemy/stencil-templatemodule
       url: ./
       version:

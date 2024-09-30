@@ -1,10 +1,12 @@
 {
+{{- if stencil.Arg "nativeModule" }}
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
     "--fast"
   ],
   "go.formatTool": "goimports",
   "go.useLanguageServer": true,
+{{- end }}
   "files.trimTrailingWhitespace": true,
   "files.exclude": {
     "**/bin": true,
