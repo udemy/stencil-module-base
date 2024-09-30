@@ -107,6 +107,7 @@ jobs:
 {{ file.Block "gotestvars" }}
         ## <</Stencil::Block>>
 {{- end }}
+{{- if stencil.Arg "templateModule" }}
       ## <<Stencil::Block(buildtestauth)>>
 {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
@@ -127,6 +128,7 @@ jobs:
       ## <<Stencil::Block(buildteststeps)>>
 {{ file.Block "arguments" }}
       ## <</Stencil::Block>>
+{{- end }}
 
   build-release:
     name: Build and Release

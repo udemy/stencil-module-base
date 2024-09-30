@@ -1,8 +1,12 @@
 name: github.com/udemy/{{ .Config.Name }}
-{{- if stencil.Arg "nativeModule" }}
+{{- if and (stencil.Arg "nativeModule") (stencil.Arg "templateModule") }}
 type: templates,extension
-{{- else }}
+{{- else if stencil.Arg "nativeModule" }}
+type: extension
+{{- else if stencil.Arg "templateModule" }}
 type: templates
+{{- else }}
+{{- fail "Either templateModule or nativeModule must be true" }}
 {{- end }}
 dirReplacements:
   ## <<Stencil::Block(dirReplacements)>>

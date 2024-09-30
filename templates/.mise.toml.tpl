@@ -10,8 +10,9 @@ goreleaser = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
+{{- if stencil.Arg "nativeModule" }}
 
-{{ if stencil.Arg "nativeModule" -}}
+# Native module tasks
 [tasks.build]
 description = "Build a binary for the current platform/architecture"
 run = "go build -trimpath -o ./bin/ -v ./cmd/..."
@@ -40,7 +41,9 @@ run = ["./.github/scripts/get-next-version.sh"]
 description = "Run tests"
 run = "gotestsum"
 {{- end }}
+{{- if stencil.Arg "templateModule" }}
 
+# Template module tasks
 [tasks.cleantest]
 description = "Helper to clean the test directory"
 dir = "tests"
@@ -52,7 +55,7 @@ done
 """
 
 [tasks.buildtest]
-description = 'Build the Test templates'
+description = 'Build the Test projects'
 dir = "tests"
 run = """
 #!/usr/bin/env bash
@@ -75,6 +78,7 @@ echo "Tests are running"
 {{ file.Block "runTests" }}
 {{- end }}
 ## <</Stencil::Block>>
+{{- end }}
 
 ## <<Stencil::Block(tasks)>>
 {{ file.Block "tasks" }}

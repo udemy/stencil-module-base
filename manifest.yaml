@@ -1,4 +1,5 @@
 name: github.com/udemy/stencil-templatemodule
+type: templates
 dirReplacements:
   ## <<Stencil::Block(dirReplacements)>>
 
@@ -22,7 +23,12 @@ arguments:
   ## <<Stencil::Block(arguments)>>
   nativeModule:
     required: false
-    description: Does this template module include native module golang code
+    description: Does this module include native module golang code?
+    schema:
+      type: boolean
+  templateModule:
+    required: false
+    description: Does this module include templated code
     schema:
       type: boolean
   buildAndTestRunner:

@@ -2,8 +2,7 @@
 nodejs = "22"
 yarn = "1.22.22"
 
-
-
+# Template module tasks
 [tasks.cleantest]
 description = "Helper to clean the test directory"
 dir = "tests"
@@ -15,7 +14,7 @@ done
 """
 
 [tasks.buildtest]
-description = 'Build the Test templates'
+description = 'Build the Test projects'
 dir = "tests"
 run = """
 #!/usr/bin/env bash
@@ -28,9 +27,13 @@ done
 description = 'Run the tests'
 dir = "tests"
 ## <<Stencil::Block(runTests)>>
-env = {ENV_VAR_NAME = 'hooray'} # env vars for the script
+env = { ENV_VAR_NAME = 'hooray' } # env vars for the script
 run = """
 #!/usr/bin/env bash
 echo "Tests are running"
 """
+## <</Stencil::Block>>
+
+## <<Stencil::Block(tasks)>>
+
 ## <</Stencil::Block>>

@@ -3,6 +3,7 @@ name: stencil-templatemodule
 arguments:
   description: Stencil module forming the base for stencil template modules
   owner: platform
+  templateModule: true
 modules:
   - name: github.com/udemy/stencil-templatemodule
 replacements:

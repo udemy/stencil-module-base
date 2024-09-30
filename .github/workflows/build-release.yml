@@ -20,6 +20,8 @@ on:
       - 'tests/**'
       - 'manifest.yaml'
       - 'stencil.yaml'
+      - '.goreleaser.yaml'
+      - '.mise.toml'
 
 env:
   GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
