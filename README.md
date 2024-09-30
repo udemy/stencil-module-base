@@ -1,4 +1,4 @@
-# stencil-templatemodule
+# stencil-module-base
 
 This is a stencil module for making it easy to make stencil modules.  Much meta, wow.
 

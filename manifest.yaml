@@ -1,4 +1,4 @@
-name: github.com/udemy/stencil-templatemodule
+name: github.com/udemy/stencil-module-base
 type: templates
 dirReplacements:
   ## <<Stencil::Block(dirReplacements)>>

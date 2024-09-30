@@ -1,5 +1,5 @@
 {
-  "name": "stencil-templatemodule",
+  "name": "stencil-module-base",
   "devDependencies": {
     "semantic-release": "23.0.8"
   },

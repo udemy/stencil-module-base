@@ -1,10 +1,10 @@
 # yaml-language-server: $schema=https://stencil.rgst.io/static/stencil.jsonschema.json
-name: stencil-templatemodule
+name: stencil-module-base
 arguments:
   description: Stencil module forming the base for stencil template modules
   owner: platform
   templateModule: true
 modules:
-  - name: github.com/udemy/stencil-templatemodule
+  - name: github.com/udemy/stencil-module-base
 replacements:
-  github.com/udemy/stencil-templatemodule: ./
+  github.com/udemy/stencil-module-base: ./
