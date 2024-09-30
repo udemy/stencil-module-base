@@ -38,7 +38,7 @@ vendor
 .DS_Store
 
 # Currently a build artifact for native modules
-CHANGELOG.md
+tempchangelog.md
 
 # Ignore literally everything under the tests directory (except the README) -- specifically include the dir and stencil.yaml file
 # for each test case in the ignores block below

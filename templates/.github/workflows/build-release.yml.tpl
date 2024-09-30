@@ -193,7 +193,7 @@ jobs:
         with:
           distribution: goreleaser
           version: {{ "v${{ steps.goreleaser.outputs.version }}" }}
-          args: release --release-notes CHANGELOG.md --clean
+          args: release --release-notes tempchangelog.md --clean
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
           ## <<Stencil::Block(goreleaserEnvVars)>>

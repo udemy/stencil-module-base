@@ -19,8 +19,8 @@ run = "go build -trimpath -o ./bin/ -v ./cmd/..."
 
 [tasks.changelog]
 description = "Generate a changelog for the current version"
-outputs = ["CHANGELOG.md"]
-run = ["git-cliff --latest --output CHANGELOG.md"]
+outputs = ["tempchangelog.md"]
+run = ["git-cliff --latest --output tempchangelog.md"]
 
 [tasks.fmt]
 alias = "format"
