@@ -71,7 +71,7 @@ jobs:
           ref: {{ "${{ github.head_ref }}" }}
           fetch-depth: 2
       - name: Install Tool Versions
-        uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
+        uses: jdx/mise-action@f8dfbcc150159126838e44b882bf34bd98fd90f3
         with:
           experimental: true
         env:
@@ -152,7 +152,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
       - name: Install Tool Versions
-        uses: jdx/mise-action@052520c41a328779551db19a76697ffa34f3eabc
+        uses: jdx/mise-action@f8dfbcc150159126838e44b882bf34bd98fd90f3
         with:
           experimental: true
         env:
