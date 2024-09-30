@@ -39,6 +39,7 @@ vendor
 
 # Currently a build artifact for native modules
 CHANGELOG.md
+!templates/CHANGELOG.md
 
 # Ignore literally everything under the tests directory (except the README) -- specifically include the dir and stencil.yaml file
 # for each test case in the ignores block below
