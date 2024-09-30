@@ -4,6 +4,9 @@ arguments:
   description: Test template module for validating changes to stencil-module-base
   owner: platform
   templateModule: true
+  packageJsonScripts:
+    build: echo "build"
+    test: echo "test"
 modules:
   - name: github.com/udemy/stencil-module-base
 replacements:

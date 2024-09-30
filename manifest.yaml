@@ -38,7 +38,10 @@ arguments:
       type: string
   packageJsonDeps:
     required: false
-    description: The package.json dependencies to add to the generated package.json
+    description: package.json dependencies to add to the generated package.json (key/value map)
+  packageJsonScripts:
+    required: false
+    description: package.json scripts to add to the generated package.json (key/value map)
   ## <</Stencil::Block>>
 modules:
   - name: github.com/udemy/eng-team-management

@@ -8,10 +8,12 @@ Stencil modules can be a native and/or template module.  A native module is one 
 
 In the `arguments` section of the `manifest.yaml` file, you can specify the following options:
 
-| Option               | Default         | Description                                                    |
-| -------------------- | --------------- | -------------------------------------------------------------- |
-| `description`        | Required        | Friendly-but-short description string for the frontend app     |
-| `owner`              | Required        | Pod or Portfolio ID for the owner of the frontend app          |
-| `nativeModule`       | `false`         | Does this module include native module golang code             |
-| `templateModule`     | `false`         | Does this module include templated code                        |
-| `buildAndTestRunner` | `ubuntu-latest` | The github actions runner to use for the build and test CI job |
+| Option               | Default         | Description                                                                    |
+| -------------------- | --------------- | ------------------------------------------------------------------------------ |
+| `description`        | Required        | Friendly-but-short description string for the frontend app                     |
+| `owner`              | Required        | Pod or Portfolio ID for the owner of the frontend app                          |
+| `nativeModule`       | `false`         | Does this module include native module golang code                             |
+| `templateModule`     | `false`         | Does this module include templated code                                        |
+| `buildAndTestRunner` | `ubuntu-latest` | The github actions runner to use for the build and test CI job                 |
+| `packageJsonDeps`    | `{}`            | package.json dependencies to add to the generated package.json (key/value map) |
+| `packageJsonScripts` | `{}`            | package.json scripts to add to the generated package.json (key/value map)      |
