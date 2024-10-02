@@ -1,7 +1,7 @@
 {{- if not (stencil.Arg "nativeModule") -}}
 {{- file.Delete -}}
 {{- end -}}
-module github.com/udemy/{{ .Config.Name }}
+module github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}
 
 go 1.23.1
 

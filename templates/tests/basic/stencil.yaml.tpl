@@ -6,10 +6,8 @@
 # yaml-language-server: $schema=https://stencil.rgst.io/static/stencil.jsonschema.json
 name: {{ .Config.Name }}-test
 arguments:
-  description: Test folder for validating changes to {{ .Config.Name }}
-  owner: {{ stencil.Arg "owner"}}
   templateModule: true
 modules:
-  - name: github.com/udemy/{{ .Config.Name }}
+  - name: github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}
 replacements:
-  github.com/udemy/{{ .Config.Name }}: ../../
+  github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}: ../../

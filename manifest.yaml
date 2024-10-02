@@ -1,25 +1,6 @@
 name: github.com/udemy/stencil-module-base
 type: templates
-dirReplacements:
-  ## <<Stencil::Block(dirReplacements)>>
-
-  ## <</Stencil::Block>>
-postRunCommand:
-  ## <<Stencil::Block(postruncommands)>>
-  - name: yarn install
-    command: yarn install
-  ## <</Stencil::Block>>
 arguments:
-  description:
-    required: true
-    description: Friendly-but-short description string for the repository
-    schema:
-      type: string
-  owner:
-    required: true
-    description: Team ID (see eng-team-management repo) for the owner of the repository
-    schema:
-      type: string
   ## <<Stencil::Block(arguments)>>
   nativeModule:
     required: false
@@ -31,6 +12,16 @@ arguments:
     description: Does this module include templated code
     schema:
       type: boolean
+  githubOrg:
+    required: true
+    description: The github org of the repository (i.e. github.com/udemy/stencil-module-base -> "udemy")
+    schema:
+      type: string
+  githubOwner:
+    required: false
+    description: The github owner of the repository (i.e. @udemy/platform)
+    schema:
+      type: string
   buildAndTestRunner:
     required: false
     description: The github actions runner to use for the build and test CI job
@@ -44,10 +35,11 @@ arguments:
     description: package.json scripts to add to the generated package.json (key/value map)
   ## <</Stencil::Block>>
 modules:
-  - name: github.com/udemy/eng-team-management
   ## <<Stencil::Block(modules)>>
 
   ## <</Stencil::Block>>
 ## <<Stencil::Block(extra)>>
-
+postRunCommand:
+  - name: yarn install
+    command: yarn install
 ## <</Stencil::Block>>
