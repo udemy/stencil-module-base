@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://stencil.rgst.io/static/stencil.jsonschema.json
 name: stencil-module-base-test-template
 arguments:
-  description: Test template module for validating changes to stencil-module-base
-  owner: platform
   templateModule: true
+  githubOrg: udemy
+  githubOwner: "@udemy/platform"
   packageJsonScripts:
     build: echo "build"
     test: echo "test"

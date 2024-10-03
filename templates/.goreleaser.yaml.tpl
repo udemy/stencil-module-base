@@ -45,4 +45,4 @@ changelog:
 release:
   prerelease: "auto"
   footer: |-
-    {{ "**Full Changelog**: https://github.com/udemy/eng-team-management/compare/{{ .PreviousTag }}...{{ .Tag }}" }}
+    **Full Changelog**: https://github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}/compare/{{ "{{ .PreviousTag }}...{{ .Tag }}" }}

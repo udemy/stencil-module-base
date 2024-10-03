@@ -1,4 +1,6 @@
+{{- if not (stencil.Arg "githubOwner") -}}
+{{- file.Delete -}}
+{{- end -}}
 # See https://help.github.com/articles/about-codeowners/
 # Default ownership -- owning team owns everything by default
-{{- $teamInfo := stencil.GetGlobal "TeamInfo" | default (dict) }}
-* @udemy/{{ index $teamInfo "githubTeam" }}
+* {{ stencil.Arg "githubOwner" }}

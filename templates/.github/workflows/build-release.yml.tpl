@@ -27,9 +27,6 @@ on:
       - 'internal/**'
 {{- end }}
 
-env:
-  GH_ROLE_ARN: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
-
 jobs:
   build-and-test:
     name: Build and Test
@@ -39,34 +36,13 @@ jobs:
       contents: read
       actions: read
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::602046956384:role/GithubActions-github-actions-services-repos-Role
-          aws-region: 'us-east-1'
-      - name: Get Github Secrets from Secrets manager
-        uses: aws-actions/aws-secretsmanager-get-secrets@v2
-        with:
-          secret-ids: |
-            GITHUB_CUE_APP_KEY
       ## <<Stencil::Block(getMoreCiSecrets)>>
 {{ file.Block "getMoreCiSecrets" }}
       ## <</Stencil::Block>>
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: 407179
-          private-key: {{ "${{ env.GITHUB_CUE_APP_KEY }}" }}
-          owner: udemy
-      - name: Set git Credentials
-        run: |
-          git config --global "url.https://udemy:{{ "${{ steps.generate_token.outputs.token }}" }}@github.com/.insteadOf" https://github.com/
       - name: Checkout
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-          token: {{ "${{ steps.generate_token.outputs.token }}" }}
           # These two required for builds to successfully amend commits
           ref: {{ "${{ github.head_ref }}" }}
           fetch-depth: 2
@@ -76,11 +52,6 @@ jobs:
           experimental: true
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
-      - name: Install Stencil
-        uses: rgst-io/stencil-action@34abb7be7ca3847f233bd9c38f1da71b30556c35
-        with:
-          github-token: {{ "${{ github.token }}" }}
-          version: 'latest'
 {{- if stencil.Arg "nativeModule" }}
       - name: Get Go directories
         id: go
@@ -112,23 +83,26 @@ jobs:
         ## <</Stencil::Block>>
 {{- end }}
 {{- if stencil.Arg "templateModule" }}
+      - name: Install Stencil
+        uses: rgst-io/stencil-action@34abb7be7ca3847f233bd9c38f1da71b30556c35
+        with:
+          github-token: {{ "${{ github.token }}" }}
+          version: 'latest'
       ## <<Stencil::Block(buildtestauth)>>
 {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
-        env:
-          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
-          ## <<Stencil::Block(buildTestEnvVars)>>
+        # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        ## <<Stencil::Block(buildTestEnvVars)>>
 {{ file.Block "buildTestEnvVars" }}
-          ## <</Stencil::Block>>
+        ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
-        env:
-          GITHUB_TOKEN: {{ "${{ steps.generate_token.outputs.token }}" }}
-          ## <<Stencil::Block(runTestEnvVars)>>
+        # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        ## <<Stencil::Block(runTestEnvVars)>>
 {{ file.Block "runTestEnvVars" }}
-          ## <</Stencil::Block>>
+        ## <</Stencil::Block>>
       ## <<Stencil::Block(buildteststeps)>>
 {{ file.Block "arguments" }}
       ## <</Stencil::Block>>
