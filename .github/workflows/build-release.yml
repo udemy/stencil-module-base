@@ -52,18 +52,16 @@ jobs:
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
-        env:
-          # Fill in GITHUB_TOKEN here if you need a custom token to read module dependencies
-          ## <<Stencil::Block(buildTestEnvVars)>>
+        # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        ## <<Stencil::Block(buildTestEnvVars)>>
 
-          ## <</Stencil::Block>>
+        ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
-        env:
-          # Fill in GITHUB_TOKEN here if you need a custom token to read module dependencies
-          ## <<Stencil::Block(runTestEnvVars)>>
+        # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        ## <<Stencil::Block(runTestEnvVars)>>
 
-          ## <</Stencil::Block>>
+        ## <</Stencil::Block>>
       ## <<Stencil::Block(buildteststeps)>>
 
       ## <</Stencil::Block>>
