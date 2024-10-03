@@ -52,11 +52,6 @@ jobs:
           experimental: true
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
-      - name: Install Stencil
-        uses: rgst-io/stencil-action@34abb7be7ca3847f233bd9c38f1da71b30556c35
-        with:
-          github-token: {{ "${{ github.token }}" }}
-          version: 'latest'
 {{- if stencil.Arg "nativeModule" }}
       - name: Get Go directories
         id: go
@@ -88,6 +83,11 @@ jobs:
         ## <</Stencil::Block>>
 {{- end }}
 {{- if stencil.Arg "templateModule" }}
+      - name: Install Stencil
+        uses: rgst-io/stencil-action@34abb7be7ca3847f233bd9c38f1da71b30556c35
+        with:
+          github-token: {{ "${{ github.token }}" }}
+          version: 'latest'
       ## <<Stencil::Block(buildtestauth)>>
 {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
