@@ -7,6 +7,23 @@ on:
       - reopened
       - edited
       - synchronize
+    paths:
+      - 'stencil.yaml'
+      - 'manifest.yaml'
+      - '.mise.toml'
+      - '.github/workflows/build-release.yml'
+{{- if stencil.Arg "templateModule" }}
+      - 'templates/**'
+      - 'tests/**'
+{{- end }}
+{{- if stencil.Arg "nativeModule" }}
+      - 'go.mod'
+      - 'go.sum'
+      - '.goreleaser.yaml'
+      - 'cmd/**'
+      - 'pkg/**'
+      - 'internal/**'
+{{- end }}
 
 jobs:
   lint:
