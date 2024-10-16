@@ -45,12 +45,14 @@ tempchangelog.md
 tests/*
 !tests/README.md
 
+{{ if stencil.Exists "tests" -}}
 {{ range $entry := stencil.ReadDir "tests" -}}
 {{ if $entry.IsDir -}}
 !tests/{{ $entry.Name }}
 tests/{{ $entry.Name }}/*
 !tests/{{ $entry.Name }}/stencil.yaml
 {{ end -}}
+{{- end }}
 {{- end }}
 ## <<Stencil::Block(ignores)>>
 {{ file.Block "ignores" }}
