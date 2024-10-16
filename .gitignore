@@ -45,14 +45,16 @@ tempchangelog.md
 tests/*
 !tests/README.md
 
-## <<Stencil::Block(ignores)>>
-!tests/template
-tests/template/*
-!tests/template/stencil.yaml
-!tests/native
-tests/native/*
-!tests/native/stencil.yaml
 !tests/both
 tests/both/*
 !tests/both/stencil.yaml
+!tests/native
+tests/native/*
+!tests/native/stencil.yaml
+!tests/template
+tests/template/*
+!tests/template/stencil.yaml
+
+## <<Stencil::Block(ignores)>>
+
 ## <</Stencil::Block>>
