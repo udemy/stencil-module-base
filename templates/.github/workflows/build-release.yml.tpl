@@ -112,7 +112,7 @@ jobs:
     name: Build and Release
     if: {{ "${{ github.ref == 'refs/heads/main' }}" }} # Only run on main branch commits
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: {{ stencil.Arg "buildAndTestRunner" | default "ubuntu-latest" }}
     permissions: write-all
     steps:
       - name: Checkout

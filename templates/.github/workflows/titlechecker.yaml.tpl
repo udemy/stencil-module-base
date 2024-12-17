@@ -28,7 +28,7 @@ on:
 jobs:
   lint:
     name: Conventional Commit Title Checker
-    runs-on: ubuntu-latest
+    runs-on: {{ stencil.Arg "buildAndTestRunner" | default "ubuntu-latest" }}
     permissions:
       statuses: write
     steps:
