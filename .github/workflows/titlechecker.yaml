@@ -18,7 +18,7 @@ on:
 jobs:
   lint:
     name: Conventional Commit Title Checker
-    runs-on: udemy-runner
+    runs-on: ubuntu-latest
     permissions:
       statuses: write
     steps:

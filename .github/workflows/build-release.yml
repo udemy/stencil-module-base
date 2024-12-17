@@ -20,7 +20,7 @@ on:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: udemy-runner
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
@@ -70,7 +70,7 @@ jobs:
     name: Build and Release
     if: ${{ github.ref == 'refs/heads/main' }} # Only run on main branch commits
     needs: build-and-test
-    runs-on: udemy-runner
+    runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - name: Checkout

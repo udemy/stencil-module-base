@@ -4,7 +4,8 @@ arguments:
   templateModule: true
   githubOrg: udemy
   githubOwner: "@udemy/platform"
-  buildAndTestRunner: "udemy-runner"
+  # TODO: Appears broken for now, re-enable later
+  # buildAndTestRunner: "udemy-runner"
 modules:
   - name: github.com/udemy/stencil-module-base
 replacements:
