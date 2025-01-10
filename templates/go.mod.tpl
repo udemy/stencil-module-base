@@ -3,14 +3,14 @@
 {{- end -}}
 module github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}
 
-go 1.23.1
+go 1.23.4
 
 // <<Stencil::Block(requires)>>
 {{- if empty (trim (file.Block "requires")) }}
 require (
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.9.0
-	go.rgst.io/stencil v0.10.2
+	github.com/stretchr/testify v1.10.0
+	go.rgst.io/stencil/v2 v2.0.1
 )
 {{- else }}
 {{ file.Block "requires" }}

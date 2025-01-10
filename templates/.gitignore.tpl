@@ -52,8 +52,8 @@ tests/*
 tests/{{ $entry.Name }}/*
 !tests/{{ $entry.Name }}/stencil.yaml
 {{ end -}}
-{{- end }}
-{{- end }}
+{{ end -}}
+{{ end -}}
 ## <<Stencil::Block(ignores)>>
 {{ file.Block "ignores" }}
 ## <</Stencil::Block>>

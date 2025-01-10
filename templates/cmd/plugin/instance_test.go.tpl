@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.rgst.io/stencil/pkg/extensions/apiv1"
+	"go.rgst.io/stencil/v2/pkg/extensions/apiv1"
 )
 
 func TestGetTeam(t *testing.T) {
