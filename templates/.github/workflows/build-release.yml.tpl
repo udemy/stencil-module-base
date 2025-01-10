@@ -67,12 +67,9 @@ jobs:
           path: {{ "${{ steps.go.outputs.mod_cache_dir }}" }}
           key: {{ "${{ github.workflow }}-${{ runner.os }}-go-mod-cache-${{ hashFiles('go.sum') }}" }}
       - name: Lint
-        uses: golangci/golangci-lint-action@v4
+        uses: golangci/golangci-lint-action@v6
         with:
           version: latest
-          # We already use setup-go's pkg cache and actions/cache's build cache, so don't double-up
-          skip-pkg-cache: true
-          skip-build-cache: true
           args: --timeout=6m
       - name: Build Go binary
         run: mise run build
