@@ -3,8 +3,8 @@ nodejs = "22"
 yarn = "1.22.22"
 {{- if stencil.Arg "nativeModule" }}
 git-cliff = "latest"
-golang = "1.23"
-golangci-lint = "1.60"
+golang = "1.24"
+golangci-lint = "1.64"
 goreleaser = "latest"
 "go:gotest.tools/gotestsum" = "v1.12.0"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
@@ -60,7 +60,7 @@ dir = "tests"
 run = """
 #!/usr/bin/env bash
 for dir in ./*/ ; do
-    (cd "$dir" && stencil);
+    (cd "$dir" && echo "Building the project $dir" && stencil);
 done
 """
 

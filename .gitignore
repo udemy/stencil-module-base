@@ -54,7 +54,6 @@ tests/native/*
 !tests/template
 tests/template/*
 !tests/template/stencil.yaml
-
 ## <<Stencil::Block(ignores)>>
 
 ## <</Stencil::Block>>
