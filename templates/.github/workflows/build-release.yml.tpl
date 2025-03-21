@@ -69,7 +69,7 @@ jobs:
       - name: Lint
         uses: golangci/golangci-lint-action@v6
         with:
-          version: 1.64
+          version: v1.64
           args: --timeout=6m
       - name: Build Go binary
         run: mise run build
