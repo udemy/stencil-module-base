@@ -10,6 +10,10 @@ goreleaser = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
+## <<Stencil::Block(additionalTools)>>
+{{ file.Block "additionalTools" }}
+## <</Stencil::Block>>
+
 {{- if stencil.Arg "nativeModule" }}
 
 # Native module tasks

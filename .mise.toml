@@ -1,6 +1,9 @@
 [tools]
 nodejs = "22"
 yarn = "1.22.22"
+## <<Stencil::Block(additionalTools)>>
+
+## <</Stencil::Block>>
 
 # Template module tasks
 [tasks.cleantest]
