@@ -64,7 +64,7 @@ dir = "tests"
 run = """
 #!/usr/bin/env bash
 for dir in ./*/ ; do
-    (cd "$dir" && echo "Building the project $dir" && stencil);
+    (cd "$dir" && echo "Building the project $dir" && stencil) || exit 1;
 done
 """
 
