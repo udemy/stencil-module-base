@@ -40,6 +40,6 @@ modules:
   ## <</Stencil::Block>>
 ## <<Stencil::Block(extra)>>
 postRunCommand:
-  - name: yarn install
-    command: yarn install
+  - name: yarn install (via once)
+    command: once yarn install
 ## <</Stencil::Block>>
