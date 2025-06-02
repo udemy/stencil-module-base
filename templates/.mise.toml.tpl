@@ -1,6 +1,6 @@
 [tools]
 nodejs = "22"
-yarn = "1.22.22"
+pnpm = "latest"
 {{- if stencil.Arg "nativeModule" }}
 git-cliff = "latest"
 golang = "1.24"
