@@ -52,6 +52,10 @@ jobs:
           experimental: true
         env:
           GH_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+      - name: Install once
+        uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2
+        with:
+          repo: jaredallard/once
 {{- if stencil.Arg "nativeModule" }}
       - name: Get Go directories
         id: go
