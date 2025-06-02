@@ -176,7 +176,7 @@ jobs:
           ## <</Stencil::Block>>
 {{- else }}
       - name: Install Semantic-Release
-        run: once yarn install
+        run: pnpm install
       - name: Release
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}

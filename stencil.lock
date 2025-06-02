@@ -61,6 +61,3 @@ files:
     - name: tests/basic/stencil.yaml
       template: tests/basic/stencil.yaml.tpl
       module: github.com/udemy/stencil-module-base
-    - name: yarn.lock
-      template: yarn.lock.tpl
-      module: github.com/udemy/stencil-module-base
