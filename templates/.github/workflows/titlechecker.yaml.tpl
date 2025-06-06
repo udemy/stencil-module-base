@@ -31,8 +31,9 @@ jobs:
     runs-on: {{ stencil.Arg "buildAndTestRunner" | default "ubuntu-latest" }}
     permissions:
       statuses: write
+      pull-requests: write
     steps:
       - name: Conventional Commit Title Checker
-        uses: aslafy-z/conventional-pr-title-action@2ce59b07f86bd51b521dd088f0acfb0d7fdac55e
+        uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
