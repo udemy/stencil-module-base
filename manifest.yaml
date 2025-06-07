@@ -39,7 +39,5 @@ modules:
 
   ## <</Stencil::Block>>
 ## <<Stencil::Block(extra)>>
-postRunCommand:
-  - name: pnpm install (via once)
-    command: mise x -- once pnpm install
+
 ## <</Stencil::Block>>

@@ -8,12 +8,12 @@ on:
       - edited
       - synchronize
     paths:
-      - "stencil.yaml"
-      - "manifest.yaml"
-      - ".mise.toml"
-      - ".github/workflows/build-release.yml"
-      - "templates/**"
-      - "tests/**"
+      - 'stencil.yaml'
+      - 'manifest.yaml'
+      - '.mise.toml'
+      - '.github/workflows/build-release.yml'
+      - 'templates/**'
+      - 'tests/**'
 
 jobs:
   lint:
