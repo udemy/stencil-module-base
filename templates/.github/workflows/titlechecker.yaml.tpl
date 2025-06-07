@@ -31,7 +31,7 @@ jobs:
     runs-on: {{ stencil.Arg "buildAndTestRunner" | default "ubuntu-latest" }}
     permissions:
       statuses: write
-      pull-requests: write
+      pull-requests: read
     steps:
       - name: Conventional Commit Title Checker
         uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
