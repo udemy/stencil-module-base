@@ -17,10 +17,11 @@
 {{- range $key, $value := (stencil.Arg "packageJsonDeps") }}
     "{{ $key }}": "{{ $value }}",
 {{- end }}
-    "semantic-release": "24.2.5"
+    "semantic-release": "24.2.6"
   },
   "dependencies": {
     "@semantic-release/exec": "7.1.0",
-    "@semantic-release/git": "10.0.1"
+    "@semantic-release/git": "10.0.1",
+    "js-yaml": "^4.1.0"
   }
 }
