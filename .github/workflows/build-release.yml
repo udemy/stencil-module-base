@@ -66,6 +66,19 @@ jobs:
         ## <<Stencil::Block(runTestEnvVars)>>
 
         ## <</Stencil::Block>>
+      - name: Install JS Deps
+        run: pnpm install
+      - name: Update README.md if needed
+        run: mise run gentable
+        env:
+          # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
+          ## <<Stencil::Block(readmeUpdateGhToken)>>
+          GH_TOKEN: ${{ github.token }}
+          ## <</Stencil::Block>>
+      - name: Commit back any changes
+        uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
+        with:
+          commit_message: Update README.md manifest options table
       ## <<Stencil::Block(buildteststeps)>>
 
       ## <</Stencil::Block>>
@@ -97,7 +110,7 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2
         with:
           repo: jaredallard/once
-      - name: Install Semantic-Release
+      - name: Install JS Deps
         run: pnpm install
       - name: Release
         env:
