@@ -50,6 +50,12 @@ while (toFetch.length > 0) {
 }
 
 function getArgInfo(m, k) {
+    if (!modules[m]) {
+        throw new Error(`Module ${m} not found`);
+    }
+    if (!modules[m].arguments) {
+        throw new Error(`No arguments found for ${m}`);
+    }
     const v = modules[m].arguments[k];
     if (v.from) {
         return getArgInfo(v.from, k);
@@ -120,7 +126,7 @@ if (firstLine !== -1) {
     if (lastLine === -1) {
         // Use last section if exists
         if (otherSection !== -1) {
-            lastLine = otherSection - 2;
+            lastLine = Math.max(firstLine, otherSection - 2);
         } else {
             // Use end of file
             lastLine = lines.length - 1;
