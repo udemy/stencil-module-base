@@ -57,6 +57,9 @@ function getArgInfo(m, k) {
         throw new Error(`No arguments found for ${m}`);
     }
     const v = modules[m].arguments[k];
+    if (!v) {
+        throw new Error(`Argument ${k} not found for ${m}`);
+    }
     if (v.from) {
         return getArgInfo(v.from, k);
     }
@@ -102,7 +105,13 @@ for (const [k, v] of Object.entries(data.arguments)) {
     out += `| ${k} | ${def} | ${fromHead}${desc} |\n`;
 }
 
-const readme = fs.readFileSync("README.md", "utf8");
+let readme = "";
+try {
+    readme = fs.readFileSync("README.md", "utf8");
+} catch (e) {
+    console.log("No README.md found, creating one...");
+    readme = "";
+}
 const lines = readme.split('\n');
 let firstLine = lines.indexOf("## Manifest Arguments");
 let lastLine = -1;
