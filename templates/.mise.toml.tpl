@@ -84,6 +84,13 @@ echo "Tests are running"
 ## <</Stencil::Block>>
 {{- end }}
 
+[tasks.gentable]
+description = 'Generate the README.md table of arguments'
+run = """
+#!/usr/bin/env bash
+node scripts/yamltotable.js
+"""
+
 ## <<Stencil::Block(tasks)>>
 {{ file.Block "tasks" }}
 ## <</Stencil::Block>>

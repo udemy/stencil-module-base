@@ -1,0 +1,129 @@
+const fs = require('fs');
+const yaml = require('js-yaml');
+const { execSync } = require('child_process');
+
+const file = fs.readFileSync('manifest.yaml', 'utf8');
+const data = yaml.load(file);
+
+const headLines = [
+    "## Manifest Arguments",
+    "",
+    "In the `arguments` section of your project's `stencil.yaml` file, you can specify the following options:",
+    "",
+];
+
+function splitName(name) {
+    const mp = name.split('/');
+    // Check for characters outside of a-zA-Z0-9-_.
+    const allowedChars = /[^a-zA-Z0-9-_.]/g;
+    for (let i = 1; i <= 2; i++) {
+        if (!allowedChars.test(mp[i])) {
+            throw new Error(`Invalid character in ${name}: ${mp[i]}`);
+        }
+    }
+    return [mp[0], mp[1]];
+}
+
+let modules = { [data.name]: data };
+let toFetch = data.modules.map(m => m.name);
+while (toFetch.length > 0) {
+    const m = toFetch.shift();
+    if (m in modules) {
+        continue;
+    }
+
+    console.log(`Fetching ${m} manifest...`);
+    const mp = splitName(m);
+    try {
+        const result = execSync(`gh api repos/${mp[0]}/${mp[1]}/contents/manifest.yaml --header "Accept: application/vnd.github.v3.raw"`);
+        const manifest = yaml.load(result.toString());
+        modules[m] = manifest;
+        if (manifest.modules) {
+            toFetch.push(...manifest.modules.map(m => m.name));
+        }
+    } catch (e) {
+        throw new Error(`Error fetching ${m}: ${e.message}`);
+    }
+}
+
+function getArgInfo(m, k) {
+    const v = modules[m].arguments[k];
+    if (v.from) {
+        return getArgInfo(v.from, k);
+    }
+    return v;
+}
+
+let out = `| Option | Default | Description |
+| ------ | ------- | ----------- |
+`;
+
+for (const [k, v] of Object.entries(data.arguments)) {
+    let fromHead = "";
+    if (v.from) {
+        const vp = splitName(v.from);
+        fromHead = `(From [${vp[0]}/${vp[1]}](https://github.com/${vp[0]}/${vp[1]})) `;
+    }
+
+    let ai = getArgInfo(data.name, k);
+    let def = "";
+    if (typeof ai.default !== 'undefined') {
+        if (typeof ai.default === 'string') {
+            def = `"${ai.default}"`;
+        } else {
+            def = ai.default.toString();
+        }
+    } else if (ai.required) {
+        def = '[required]';
+    } else if (!ai.required) {
+        if (ai.schema && ai.schema.type === 'boolean') {
+            def = 'false';
+        } else if (ai.schema && ai.schema.type === 'string') {
+            def = '""';
+        } else {
+            def = '[none]';
+        }
+    }
+    let desc = (ai.description || "").trim();
+    const hasDef = desc.indexOf("(default: ");
+    if (hasDef !== -1) {
+        desc = desc.substring(0, hasDef).trim();
+    }
+    desc = desc.replace(/\n/g, '<br>');
+    out += `| ${k} | ${def} | ${fromHead}${desc} |\n`;
+}
+
+const readme = fs.readFileSync("README.md", "utf8");
+const lines = readme.split('\n');
+let firstLine = lines.indexOf("## Manifest Arguments");
+let lastLine = -1;
+if (firstLine !== -1) {
+    let inTable = false;
+    for (let i = firstLine + 1; i < lines.length; i++) {
+        const isTable = lines[i].startsWith("|");
+        if (inTable) {
+            if (!isTable) {
+                lastLine = i;
+                break;
+            }
+        } else if (isTable) {
+            inTable = true;
+        }
+    }
+    if (lastLine === -1) {
+        lastLine = Math.min(lines.length - 1, firstLine + headLines.length - 1);
+    }
+}
+
+// Reassemble
+const outLines = out.split("\n");
+
+let newReadme = "";
+if (firstLine !== -1 && lastLine !== -1) {
+    newReadme = [...lines.slice(0, firstLine), ...headLines, ...outLines, ...lines.slice(lastLine + 1)].join('\n');
+} else {
+    newReadme = [...lines, "", ...headLines, ...outLines, ""].join('\n');
+}
+fs.writeFileSync("README.md", newReadme);
+
+console.log("Updated README.md!");

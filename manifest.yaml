@@ -39,5 +39,7 @@ modules:
 
   ## <</Stencil::Block>>
 ## <<Stencil::Block(extra)>>
-
+postRunCommand:
+  - name: Install/Update pnpm deps to lockfile
+    command: "pnpm install"
 ## <</Stencil::Block>>

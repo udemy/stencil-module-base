@@ -104,8 +104,26 @@ jobs:
         ## <<Stencil::Block(runTestEnvVars)>>
 {{ file.Block "runTestEnvVars" }}
         ## <</Stencil::Block>>
+      - name: Install JS Deps
+        run: pnpm install
+      - name: Update README.md if needed
+        run: mise run gentable
+        env:
+          # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
+          ## <<Stencil::Block(readmeUpdateGhToken)>>
+{{- if empty (file.Block "readmeUpdateGhToken") }}
+          GH_TOKEN: {{ "${{ github.token }}" }}
+{{- else }}
+{{ file.Block "readmeUpdateGhToken" }}
+{{- end }}
+          ## <</Stencil::Block>>
+      - name: Commit back any changes
+        uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
+        with:
+          commit_message: Update README.md manifest options table
+          push_options: --force
       ## <<Stencil::Block(buildteststeps)>>
-{{ file.Block "arguments" }}
+{{ file.Block "buildteststeps" }}
       ## <</Stencil::Block>>
 {{- end }}
 
@@ -179,7 +197,7 @@ jobs:
 {{ file.Block "goreleaserEnvVars" }}
           ## <</Stencil::Block>>
 {{- else }}
-      - name: Install Semantic-Release
+      - name: Install JS Deps
         run: pnpm install
       - name: Release
         env:
