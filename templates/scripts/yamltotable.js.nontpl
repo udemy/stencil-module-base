@@ -14,14 +14,17 @@ const headLines = [
 
 function splitName(name) {
     const mp = name.split('/');
+    if (mp.length !== 3) {
+        throw new Error(`Invalid name: ${name}`);
+    }
     // Check for characters outside of a-zA-Z0-9-_.
-    const allowedChars = /[^a-zA-Z0-9-_.]/g;
+    const allowedChars = /^[a-zA-Z0-9-_.]+$/;
     for (let i = 1; i <= 2; i++) {
         if (!allowedChars.test(mp[i])) {
             throw new Error(`Invalid character in ${name}: ${mp[i]}`);
         }
     }
-    return [mp[0], mp[1]];
+    return [mp[1], mp[2]];
 }
 
 let modules = { [data.name]: data };
@@ -99,7 +102,11 @@ let firstLine = lines.indexOf("## Manifest Arguments");
 let lastLine = -1;
 if (firstLine !== -1) {
     let inTable = false;
+    let otherSection = -1;
     for (let i = firstLine + 1; i < lines.length; i++) {
+        if (otherSection === -1 && lines[i].startsWith("#")) {
+            otherSection = i;
+        }
         const isTable = lines[i].startsWith("|");
         if (inTable) {
             if (!isTable) {
@@ -111,7 +118,13 @@ if (firstLine !== -1) {
         }
     }
     if (lastLine === -1) {
-        lastLine = Math.min(lines.length - 1, firstLine + headLines.length - 1);
+        // Use last section if exists
+        if (otherSection !== -1) {
+            lastLine = otherSection - 2;
+        } else {
+            // Use end of file
+            lastLine = lines.length - 1;
+        }
     }
 }
 
