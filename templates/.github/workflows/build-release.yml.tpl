@@ -121,7 +121,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
         with:
           commit_message: Update README.md manifest options table
-          push_options: --force
       ## <<Stencil::Block(buildteststeps)>>
 {{ file.Block "buildteststeps" }}
       ## <</Stencil::Block>>
