@@ -5,6 +5,11 @@ const { execSync } = require('child_process');
 const file = fs.readFileSync('manifest.yaml', 'utf8');
 const data = yaml.load(file);
 
+if (!data.arguments) {
+    console.log("No arguments found, skipping...");
+    process.exit(0);
+}
+
 const headLines = [
     "## Manifest Arguments",
     "",
@@ -15,6 +20,9 @@ const headLines = [
 function splitName(name) {
     const mp = name.split('/');
     if (mp.length !== 3) {
+        throw new Error(`Invalid name: ${name}`);
+    }
+    if (mp[0] != "github.com") {
         throw new Error(`Invalid name: ${name}`);
     }
     // Check for characters outside of a-zA-Z0-9-_.
@@ -28,24 +36,26 @@ function splitName(name) {
 }
 
 let modules = { [data.name]: data };
-let toFetch = data.modules.map(m => m.name);
-while (toFetch.length > 0) {
-    const m = toFetch.shift();
-    if (m in modules) {
-        continue;
-    }
-
-    console.log(`Fetching ${m} manifest...`);
-    const mp = splitName(m);
-    try {
-        const result = execSync(`gh api repos/${mp[0]}/${mp[1]}/contents/manifest.yaml --header "Accept: application/vnd.github.v3.raw"`);
-        const manifest = yaml.load(result.toString());
-        modules[m] = manifest;
-        if (manifest.modules) {
-            toFetch.push(...manifest.modules.map(m => m.name));
+if (data.modules) {
+    let toFetch = data.modules.map(m => m.name);
+    while (toFetch.length > 0) {
+        const m = toFetch.shift();
+        if (m in modules) {
+            continue;
         }
-    } catch (e) {
-        throw new Error(`Error fetching ${m}: ${e.message}`);
+
+        console.log(`Fetching ${m} manifest...`);
+        const mp = splitName(m);
+        try {
+            const result = execSync(`gh api repos/${mp[0]}/${mp[1]}/contents/manifest.yaml --header "Accept: application/vnd.github.v3.raw"`);
+            const manifest = yaml.load(result.toString());
+            modules[m] = manifest;
+            if (manifest.modules) {
+                toFetch.push(...manifest.modules.map(m => m.name));
+            }
+        } catch (e) {
+            throw new Error(`Error fetching ${m}: ${e.message}`);
+        }
     }
 }
 
@@ -119,7 +129,7 @@ if (firstLine !== -1) {
     let inTable = false;
     let otherSection = -1;
     for (let i = firstLine + 1; i < lines.length; i++) {
-        if (otherSection === -1 && lines[i].startsWith("#")) {
+        if (otherSection === -1 && lines[i - 1] === "" && lines[i].startsWith("#")) {
             otherSection = i;
         }
         const isTable = lines[i].startsWith("|");
