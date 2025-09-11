@@ -1,5 +1,5 @@
 [tools]
-nodejs = "22"
+nodejs = "lts"
 pnpm = "latest"
 ## <<Stencil::Block(additionalTools)>>
 

@@ -1,12 +1,12 @@
 [tools]
-nodejs = "22"
+nodejs = "lts"
 pnpm = "latest"
 {{- if stencil.Arg "nativeModule" }}
 git-cliff = "latest"
-golang = "1.24"
-golangci-lint = "1.64"
+golang = "1.25"
+golangci-lint = "2.4"
 goreleaser = "latest"
-"go:gotest.tools/gotestsum" = "v1.12.0"
+"go:gotest.tools/gotestsum" = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
@@ -17,6 +17,10 @@ goreleaser = "latest"
 {{- if stencil.Arg "nativeModule" }}
 
 # Native module tasks
+[tasks.checks]
+description = "Run all pre-commit checks"
+depends = ["build", "fmt", "lint", "test"]
+
 [tasks.build]
 description = "Build a binary for the current platform/architecture"
 run = "go build -trimpath -o ./bin/ -v ./cmd/..."
