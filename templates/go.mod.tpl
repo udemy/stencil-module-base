@@ -3,7 +3,7 @@
 {{- end -}}
 module github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}
 
-go 1.24.0
+go 1.25
 
 // <<Stencil::Block(requires)>>
 {{- if empty (trim (file.Block "requires")) }}
