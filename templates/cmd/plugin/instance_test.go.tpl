@@ -13,21 +13,15 @@ import (
 	"go.rgst.io/stencil/v2/pkg/extensions/apiv1"
 )
 
-func TestGetTeam(t *testing.T) {
+func TestDoSomething(t *testing.T) {
 	i, err := NewInstance(context.Background())
 	assert.NoError(t, err)
 
-	tiRaw, err := i.GetTeamByID(&apiv1.TemplateFunctionExec{Arguments: []any{"platform"}})
+	ret, err := i.DoSomething(&apiv1.TemplateFunctionExec{Arguments: []any{"arg"}})
 	assert.NoError(t, err)
-	ti := tiRaw.(models.OwningTeam)
+	assert.Nil(t, ret)
 
-	assert.Equal(t, "platform", *ti.ID)
-}
-
-func TestGetInvalidTeam(t *testing.T) {
-	i, err := NewInstance(context.Background())
-	assert.NoError(t, err)
-
-	_, err = i.GetTeamByID(&apiv1.TemplateFunctionExec{Arguments: []any{"sdfsdfsdfwesd"}})
-	assert.Error(t, err)
+	ret, err = i.DoSomething(&apiv1.TemplateFunctionExec{Arguments: []any{"error"}})
+	assert.Error(t, err, "error")
+	assert.Nil(t, ret)
 }

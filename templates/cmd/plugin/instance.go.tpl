@@ -27,6 +27,7 @@ type Instance struct {
 }
 
 // NewInstance creates a new [Instance].
+//nolint: unparam // Why: Save error for future potential usage
 func NewInstance(ctx context.Context) (*Instance, error) {
 	return &Instance{
 		ctx: ctx,
@@ -62,6 +63,10 @@ func (i *Instance) DoSomething(t *apiv1.TemplateFunctionExec) (any, error) {
 	if !ok {
 		return nil, fmt.Errorf("expected string argument, got %T", t.Arguments[0])
 	}
+	if someArg == "error" {
+		return nil, fmt.Errorf("error")
+	}
+	fmt.Printf("Passed valid arg: %s\n", someArg)
 
 	return nil, nil
 }

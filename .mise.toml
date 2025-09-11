@@ -30,10 +30,12 @@ done
 description = 'Run the tests'
 dir = "tests"
 ## <<Stencil::Block(runTests)>>
-env = { ENV_VAR_NAME = 'hooray' } # env vars for the script
 run = """
 #!/usr/bin/env bash
-echo "Tests are running"
+cd native
+mise run build
+mise run lint
+mise run test
 """
 ## <</Stencil::Block>>
 

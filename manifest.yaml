@@ -42,4 +42,6 @@ modules:
 postRunCommand:
   - name: Install/Update pnpm deps to lockfile
     command: "pnpm install --no-frozen-lockfile"
+  - name: Run fmt if applicable
+    command: "[ -f go.mod ] && mise run fmt || true"
 ## <</Stencil::Block>>
