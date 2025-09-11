@@ -71,14 +71,14 @@ jobs:
           path: {{ "${{ steps.go.outputs.mod_cache_dir }}" }}
           key: {{ "${{ github.workflow }}-${{ runner.os }}-go-mod-cache-${{ hashFiles('go.sum') }}" }}
       - name: Lint
-        uses: golangci/golangci-lint-action@v6
+        uses: golangci/golangci-lint-action@v8
         with:
-          version: v1.64
+          version: v2.4
           args: --timeout=10m
       - name: Build Go binary
         run: mise run build
       - name: Run Go Tests
-        run: go run gotest.tools/gotestsum@v1.11.0
+        run: go run gotest.tools/gotestsum@latest
         ## <<Stencil::Block(gotestvars)>>
 {{ file.Block "gotestvars" }}
         ## <</Stencil::Block>>
