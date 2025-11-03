@@ -33,7 +33,7 @@ jobs:
     runs-on: {{ stencil.Arg "buildAndTestRunner" | default "ubuntu-latest" }}
     permissions:
       id-token: write
-      contents: read
+      contents: write
       actions: read
     steps:
       ## <<Stencil::Block(getMoreCiSecrets)>>
