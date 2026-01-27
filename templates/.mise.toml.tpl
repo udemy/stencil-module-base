@@ -11,6 +11,8 @@ goreleaser = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
 ## <<Stencil::Block(additionalTools)>>
+## Add additional tool versions here (e.g., "rust = '1.75'", "python = '3.11'")
+## These will be installed via mise alongside the default tools
 {{ file.Block "additionalTools" }}
 ## <</Stencil::Block>>
 
@@ -76,6 +78,9 @@ done
 description = 'Run the tests'
 dir = "tests"
 ## <<Stencil::Block(runTests)>>
+## Customize the test runner configuration here
+## This block allows you to override the default test execution command
+## You can add environment variables, change the test directory, or modify the test command
 {{- if (empty (file.Block "runTests")) }}
 env = {ENV_VAR_NAME = 'hooray'} # env vars for the script
 run = """
@@ -93,5 +98,7 @@ description = 'Generate the README.md table of arguments'
 run = "node scripts/yamltotable.js"
 
 ## <<Stencil::Block(tasks)>>
+## Add custom mise tasks here (e.g., [tasks.mytask] description = "...", run = "...")
+## These tasks will be available via 'mise run <task-name>'
 {{ file.Block "tasks" }}
 ## <</Stencil::Block>>

@@ -37,7 +37,10 @@ jobs:
       actions: read
     steps:
       ## <<Stencil::Block(getMoreCiSecrets)>>
-{{ file.Block "getMoreCiSecrets" }}
+      ## Add additional CI secret configuration steps here
+      ## Use this to configure authentication or secrets needed for the build/test process
+      ## Example: - name: Configure AWS, uses: aws-actions/configure-aws-credentials@v2
+      {{ file.Block "getMoreCiSecrets" }}
       ## <</Stencil::Block>>
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +83,9 @@ jobs:
       - name: Run Go Tests
         run: go run gotest.tools/gotestsum@latest
         ## <<Stencil::Block(gotestvars)>>
-{{ file.Block "gotestvars" }}
+        ## Add environment variables for Go tests here
+        ## Example: env: TEST_DB_URL: ${{ secrets.TEST_DB_URL }}
+        {{ file.Block "gotestvars" }}
         ## <</Stencil::Block>>
 {{- end }}
 {{- if stencil.Arg "templateModule" }}
@@ -90,19 +95,26 @@ jobs:
           github-token: {{ "${{ github.token }}" }}
           version: 'latest'
       ## <<Stencil::Block(buildtestauth)>>
-{{ file.Block "buildtestauth" }}
+      ## Add authentication configuration steps for build/test here
+      ## Use this to set up authentication needed before building or testing
+      ## Example: - name: Authenticate, uses: some-auth-action@v1
+      {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
         ## <<Stencil::Block(buildTestEnvVars)>>
-{{ file.Block "buildTestEnvVars" }}
+        ## Add environment variables for the Build Test repo step here
+        ## Example: env: GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
+        {{ file.Block "buildTestEnvVars" }}
         ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
         ## <<Stencil::Block(runTestEnvVars)>>
-{{ file.Block "runTestEnvVars" }}
+        ## Add environment variables for the Run Tests step here
+        ## Example: env: GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
+        {{ file.Block "runTestEnvVars" }}
         ## <</Stencil::Block>>
       - name: Install JS Deps
         run: pnpm install
@@ -111,6 +123,9 @@ jobs:
         env:
           # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
           ## <<Stencil::Block(readmeUpdateGhToken)>>
+          ## Override the GitHub token used for README updates here
+          ## Default: GH_TOKEN: ${{ github.token }}
+          ## Example: GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
 {{- if empty (file.Block "readmeUpdateGhToken") }}
           GH_TOKEN: {{ "${{ github.token }}" }}
 {{- else }}
@@ -122,7 +137,10 @@ jobs:
         with:
           commit_message: Update README.md manifest options table
       ## <<Stencil::Block(buildteststeps)>>
-{{ file.Block "buildteststeps" }}
+      ## Add additional build/test steps here
+      ## These steps will run after the standard build and test steps
+      ## Example: - name: Custom Step, run: echo "Custom action"
+      {{ file.Block "buildteststeps" }}
       ## <</Stencil::Block>>
 {{- end }}
 
@@ -193,7 +211,9 @@ jobs:
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
           ## <<Stencil::Block(goreleaserEnvVars)>>
-{{ file.Block "goreleaserEnvVars" }}
+          ## Add environment variables for goreleaser here
+          ## Example: CUSTOM_VAR: ${{ secrets.CUSTOM_VAR }}
+          {{ file.Block "goreleaserEnvVars" }}
           ## <</Stencil::Block>>
 {{- else }}
       - name: Install JS Deps
@@ -205,5 +225,8 @@ jobs:
 {{- end }}
 
   ## <<Stencil::Block(extraActions)>>
-{{ file.Block "extraActions" }}
+  ## Add additional GitHub Actions jobs here
+  ## These jobs will run alongside the build-and-test and build-release jobs
+  ## Example: my-custom-job: name: Custom Job, runs-on: ubuntu-latest, steps: [...]
+  {{ file.Block "extraActions" }}
   ## <</Stencil::Block>>

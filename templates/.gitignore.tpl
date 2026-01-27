@@ -55,5 +55,7 @@ tests/{{ $entry.Name }}/*
 {{ end -}}
 {{ end -}}
 ## <<Stencil::Block(ignores)>>
+## Add additional gitignore patterns here (e.g., "*.log", "custom-dir/")
+## These patterns will be added to the .gitignore file
 {{ file.Block "ignores" }}
 ## <</Stencil::Block>>
