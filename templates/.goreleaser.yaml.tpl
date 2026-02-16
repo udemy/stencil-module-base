@@ -14,7 +14,7 @@ builds:
     ldflags:
       - -s
       - -w
-      # Add extra linker flags for the plugin build (e.g. -X main.version={{ .Version }}).
+      # Add extra linker flags for the plugin build (e.g. -X main.version=1.0.0).
       ## <<Stencil::Block(pluginLdflags)>>
 {{ file.Block "pluginLdflags" }}
       ## <</Stencil::Block>>
