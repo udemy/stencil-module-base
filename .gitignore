@@ -54,7 +54,7 @@ tests/native/*
 !tests/template
 tests/template/*
 !tests/template/stencil.yaml
+# Add additional gitignore patterns here (e.g. "*.log", "custom-dir/").
 ## <<Stencil::Block(ignores)>>
-## Add additional gitignore patterns here (e.g., "*.log", "custom-dir/")
-## These patterns will be added to the .gitignore file
+
 ## <</Stencil::Block>>

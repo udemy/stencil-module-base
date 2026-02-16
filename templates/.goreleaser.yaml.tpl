@@ -14,29 +14,26 @@ builds:
     ldflags:
       - -s
       - -w
+      # Add extra linker flags for the plugin build (e.g. -X main.version={{ .Version }}).
       ## <<Stencil::Block(pluginLdflags)>>
-      ## Add additional linker flags for the plugin build here
-      ## Example: -X main.version={{ .Version }}
-      {{ file.Block "pluginLdflags" }}
+{{ file.Block "pluginLdflags" }}
       ## <</Stencil::Block>>
     env:
       - CGO_ENABLED=0
     goarch:
       - amd64
       - arm64
+      # Add extra architectures to build (e.g. "386", "arm"). Defaults: amd64, arm64.
       ## <<Stencil::Block(pluginExtraArch)>>
-      ## Add additional architectures to build for here (e.g., "386", "arm")
-      ## Default architectures are amd64 and arm64
-      {{ file.Block "pluginExtraArch" }}
+{{ file.Block "pluginExtraArch" }}
       ## <</Stencil::Block>>
     goos:
       - linux
       - darwin
       - windows
+      # Add extra OS targets to build (e.g. "freebsd", "openbsd"). Defaults: linux, darwin, windows.
       ## <<Stencil::Block(pluginExtraOS)>>
-      ## Add additional operating systems to build for here (e.g., "freebsd", "openbsd")
-      ## Default operating systems are linux, darwin, and windows
-      {{ file.Block "pluginExtraOS" }}
+{{ file.Block "pluginExtraOS" }}
       ## <</Stencil::Block>>
     ignore:
       - goos: windows

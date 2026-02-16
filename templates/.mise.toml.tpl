@@ -10,9 +10,8 @@ goreleaser = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
+# Add additional tool versions here (e.g. rust = "1.75"). Installed via mise alongside defaults.
 ## <<Stencil::Block(additionalTools)>>
-## Add additional tool versions here (e.g., "rust = '1.75'", "python = '3.11'")
-## These will be installed via mise alongside the default tools
 {{ file.Block "additionalTools" }}
 ## <</Stencil::Block>>
 
@@ -77,10 +76,8 @@ done
 [tasks.runtest]
 description = 'Run the tests'
 dir = "tests"
+# Customize test runner: override run command and/or add env vars for the runtest task.
 ## <<Stencil::Block(runTests)>>
-## Customize the test runner configuration here
-## This block allows you to override the default test execution command
-## You can add environment variables, change the test directory, or modify the test command
 {{- if (empty (file.Block "runTests")) }}
 env = {ENV_VAR_NAME = 'hooray'} # env vars for the script
 run = """
@@ -97,8 +94,7 @@ echo "Tests are running"
 description = 'Generate the README.md table of arguments'
 run = "node scripts/yamltotable.js"
 
+# Add custom mise tasks here (e.g. [tasks.mytask] description = "...", run = "...").
 ## <<Stencil::Block(tasks)>>
-## Add custom mise tasks here (e.g., [tasks.mytask] description = "...", run = "...")
-## These tasks will be available via 'mise run <task-name>'
 {{ file.Block "tasks" }}
 ## <</Stencil::Block>>

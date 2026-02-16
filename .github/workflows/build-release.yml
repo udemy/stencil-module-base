@@ -26,10 +26,9 @@ jobs:
       contents: write
       actions: read
     steps:
+      # Add CI secret/auth steps here (e.g. configure AWS, custom tokens).
       ## <<Stencil::Block(getMoreCiSecrets)>>
-      ## Add additional CI secret configuration steps here
-      ## Use this to configure authentication or secrets needed for the build/test process
-      ## Example: - name: Configure AWS, uses: aws-actions/configure-aws-credentials@v2
+
       ## <</Stencil::Block>>
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,24 +52,22 @@ jobs:
         with:
           github-token: ${{ github.token }}
           version: "latest"
+      # Add auth steps for build/test here (e.g. login to private registry).
       ## <<Stencil::Block(buildtestauth)>>
-      ## Add authentication configuration steps for build/test here
-      ## Use this to set up authentication needed before building or testing
-      ## Example: - name: Authenticate, uses: some-auth-action@v1
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Build Test repo step here.
         ## <<Stencil::Block(buildTestEnvVars)>>
-        ## Add environment variables for the Build Test repo step here
-        ## Example: env: GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
+
         ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Run Tests step here.
         ## <<Stencil::Block(runTestEnvVars)>>
-        ## Add environment variables for the Run Tests step here
-        ## Example: env: GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
+
         ## <</Stencil::Block>>
       - name: Install JS Deps
         run: pnpm install
@@ -78,20 +75,17 @@ jobs:
         run: mise run gentable
         env:
           # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
+          # Override token for README updates here. Default: GH_TOKEN from github.token.
           ## <<Stencil::Block(readmeUpdateGhToken)>>
-          ## Override the GitHub token used for README updates here
-          ## Default: GH_TOKEN: ${{ github.token }}
-          ## Example: GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           ## <</Stencil::Block>>
       - name: Commit back any changes
         uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
         with:
           commit_message: Update README.md manifest options table
+      # Add extra build/test steps here (run after standard build and test).
       ## <<Stencil::Block(buildteststeps)>>
-      ## Add additional build/test steps here
-      ## These steps will run after the standard build and test steps
-      ## Example: - name: Custom Step, run: echo "Custom action"
+
       ## <</Stencil::Block>>
 
   build-release:
@@ -128,8 +122,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
+  # Add additional workflow jobs here (alongside build-and-test and build-release).
   ## <<Stencil::Block(extraActions)>>
-  ## Add additional GitHub Actions jobs here
-  ## These jobs will run alongside the build-and-test and build-release jobs
-  ## Example: my-custom-job: name: Custom Job, runs-on: ubuntu-latest, steps: [...]
+
   ## <</Stencil::Block>>

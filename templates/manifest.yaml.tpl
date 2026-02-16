@@ -9,19 +9,16 @@ type: templates
 {{- fail "Either templateModule or nativeModule must be true" }}
 {{- end }}
 arguments:
+  # Add custom Stencil module arguments here. Used in templates when generating projects.
   ## <<Stencil::Block(arguments)>>
-  ## Add custom Stencil module arguments here
-  ## These arguments can be used in templates and are passed when generating projects from this module
 {{ file.Block "arguments" }}
   ## <</Stencil::Block>>
 modules:
+  # Add additional Stencil modules to include. Loaded and available during project generation.
   ## <<Stencil::Block(modules)>>
-  ## Add additional Stencil modules to include here
-  ## These modules will be loaded and their templates will be available during project generation
 {{ file.Block "modules" }}
   ## <</Stencil::Block>>
+# Add extra manifest config here (e.g. postRunCommand, hooks).
 ## <<Stencil::Block(extra)>>
-## Add extra manifest configuration here (e.g., postRunCommand, hooks, etc.)
-## This block allows you to extend the manifest with additional configuration options
 {{ file.Block "extra" }}
 ## <</Stencil::Block>>
