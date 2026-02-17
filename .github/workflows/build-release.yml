@@ -26,6 +26,7 @@ jobs:
       contents: write
       actions: read
     steps:
+      # Add CI secret/auth steps here (e.g. configure AWS, custom tokens).
       ## <<Stencil::Block(getMoreCiSecrets)>>
 
       ## <</Stencil::Block>>
@@ -51,17 +52,20 @@ jobs:
         with:
           github-token: ${{ github.token }}
           version: "latest"
+      # Add auth steps for build/test here (e.g. login to private registry).
       ## <<Stencil::Block(buildtestauth)>>
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Build Test repo step here.
         ## <<Stencil::Block(buildTestEnvVars)>>
 
         ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Run Tests step here.
         ## <<Stencil::Block(runTestEnvVars)>>
 
         ## <</Stencil::Block>>
@@ -71,6 +75,7 @@ jobs:
         run: mise run gentable
         env:
           # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
+          # Override token for README updates here. Default: GH_TOKEN from github.token.
           ## <<Stencil::Block(readmeUpdateGhToken)>>
           GH_TOKEN: ${{ github.token }}
           ## <</Stencil::Block>>
@@ -78,6 +83,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
         with:
           commit_message: Update README.md manifest options table
+      # Add extra build/test steps here (run after standard build and test).
       ## <<Stencil::Block(buildteststeps)>>
 
       ## <</Stencil::Block>>
@@ -116,6 +122,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
+  # Add additional workflow jobs here (alongside build-and-test and build-release).
   ## <<Stencil::Block(extraActions)>>
 
   ## <</Stencil::Block>>

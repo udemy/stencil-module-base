@@ -10,6 +10,7 @@ goreleaser = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:github.com/thenativeweb/get-next-version" = "latest"
 {{- end }}
+# Add additional tool versions here (e.g. rust = "1.75"). Installed via mise alongside defaults.
 ## <<Stencil::Block(additionalTools)>>
 {{ file.Block "additionalTools" }}
 ## <</Stencil::Block>>
@@ -75,6 +76,7 @@ done
 [tasks.runtest]
 description = 'Run the tests'
 dir = "tests"
+# Customize test runner: override run command and/or add env vars for the runtest task.
 ## <<Stencil::Block(runTests)>>
 {{- if (empty (file.Block "runTests")) }}
 env = {ENV_VAR_NAME = 'hooray'} # env vars for the script
@@ -92,6 +94,7 @@ echo "Tests are running"
 description = 'Generate the README.md table of arguments'
 run = "node scripts/yamltotable.js"
 
+# Add custom mise tasks here (e.g. [tasks.mytask] description = "...", run = "...").
 ## <<Stencil::Block(tasks)>>
 {{ file.Block "tasks" }}
 ## <</Stencil::Block>>

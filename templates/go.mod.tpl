@@ -5,6 +5,7 @@ module github.com/{{ stencil.Arg "githubOrg" }}/{{ .Config.Name }}
 
 go 1.25
 
+// Add extra Go module dependencies here. If empty, default require block is used; if set, it replaces the default.
 // <<Stencil::Block(requires)>>
 {{- if empty (trim (file.Block "requires")) }}
 require (

@@ -36,6 +36,7 @@ jobs:
       contents: write
       actions: read
     steps:
+      # Add CI secret/auth steps here (e.g. configure AWS, custom tokens).
       ## <<Stencil::Block(getMoreCiSecrets)>>
 {{ file.Block "getMoreCiSecrets" }}
       ## <</Stencil::Block>>
@@ -79,6 +80,7 @@ jobs:
         run: mise run build
       - name: Run Go Tests
         run: go run gotest.tools/gotestsum@latest
+        # Add env vars for Go tests here (e.g. TEST_DB_URL).
         ## <<Stencil::Block(gotestvars)>>
 {{ file.Block "gotestvars" }}
         ## <</Stencil::Block>>
@@ -89,18 +91,21 @@ jobs:
         with:
           github-token: {{ "${{ github.token }}" }}
           version: 'latest'
+      # Add auth steps for build/test here (e.g. login to private registry).
       ## <<Stencil::Block(buildtestauth)>>
 {{ file.Block "buildtestauth" }}
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Build Test repo step here.
         ## <<Stencil::Block(buildTestEnvVars)>>
 {{ file.Block "buildTestEnvVars" }}
         ## <</Stencil::Block>>
       - name: Run Tests
         run: mise run runtest
         # Fill in env: -> GITHUB_TOKEN here if you need a custom token to read module dependencies
+        # Add env vars for the Run Tests step here.
         ## <<Stencil::Block(runTestEnvVars)>>
 {{ file.Block "runTestEnvVars" }}
         ## <</Stencil::Block>>
@@ -110,6 +115,7 @@ jobs:
         run: mise run gentable
         env:
           # Fill in GH_TOKEN env with a different token here if you need a custom token to read module dependencies
+          # Override token for README updates here. Default: GH_TOKEN from github.token.
           ## <<Stencil::Block(readmeUpdateGhToken)>>
 {{- if empty (file.Block "readmeUpdateGhToken") }}
           GH_TOKEN: {{ "${{ github.token }}" }}
@@ -121,6 +127,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 #v5
         with:
           commit_message: Update README.md manifest options table
+      # Add extra build/test steps here (run after standard build and test).
       ## <<Stencil::Block(buildteststeps)>>
 {{ file.Block "buildteststeps" }}
       ## <</Stencil::Block>>
@@ -192,6 +199,7 @@ jobs:
           args: release --release-notes tempchangelog.md --clean
         env:
           GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+          # Add env vars for goreleaser here (e.g. CUSTOM_VAR from secrets).
           ## <<Stencil::Block(goreleaserEnvVars)>>
 {{ file.Block "goreleaserEnvVars" }}
           ## <</Stencil::Block>>
@@ -204,6 +212,7 @@ jobs:
         run: npx semantic-release
 {{- end }}
 
+  # Add additional workflow jobs here (alongside build-and-test and build-release).
   ## <<Stencil::Block(extraActions)>>
 {{ file.Block "extraActions" }}
   ## <</Stencil::Block>>

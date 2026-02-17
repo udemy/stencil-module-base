@@ -1,6 +1,7 @@
 name: github.com/udemy/stencil-module-base
 type: templates
 arguments:
+  # Add custom Stencil module arguments here. Used in templates when generating projects.
   ## <<Stencil::Block(arguments)>>
   nativeModule:
     required: false
@@ -35,9 +36,11 @@ arguments:
     description: package.json scripts to add to the generated package.json (key/value map)
   ## <</Stencil::Block>>
 modules:
+  # Add additional Stencil modules to include. Loaded and available during project generation.
   ## <<Stencil::Block(modules)>>
 
   ## <</Stencil::Block>>
+# Add extra manifest config here (e.g. postRunCommand, hooks).
 ## <<Stencil::Block(extra)>>
 postRunCommand:
   - name: Install/Update pnpm deps to lockfile

@@ -1,6 +1,7 @@
 [tools]
 nodejs = "lts"
 pnpm = "latest"
+# Add additional tool versions here (e.g. rust = "1.75"). Installed via mise alongside defaults.
 ## <<Stencil::Block(additionalTools)>>
 
 ## <</Stencil::Block>>
@@ -29,6 +30,7 @@ done
 [tasks.runtest]
 description = 'Run the tests'
 dir = "tests"
+# Customize test runner: override run command and/or add env vars for the runtest task.
 ## <<Stencil::Block(runTests)>>
 run = """
 #!/usr/bin/env bash
@@ -43,6 +45,7 @@ mise run test
 description = 'Generate the README.md table of arguments'
 run = "node scripts/yamltotable.js"
 
+# Add custom mise tasks here (e.g. [tasks.mytask] description = "...", run = "...").
 ## <<Stencil::Block(tasks)>>
 
 ## <</Stencil::Block>>

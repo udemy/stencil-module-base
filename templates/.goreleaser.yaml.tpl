@@ -14,6 +14,7 @@ builds:
     ldflags:
       - -s
       - -w
+      # Add extra linker flags for the plugin build (e.g. -X main.version=1.0.0).
       ## <<Stencil::Block(pluginLdflags)>>
 {{ file.Block "pluginLdflags" }}
       ## <</Stencil::Block>>
@@ -22,6 +23,7 @@ builds:
     goarch:
       - amd64
       - arm64
+      # Add extra architectures to build (e.g. "386", "arm"). Defaults: amd64, arm64.
       ## <<Stencil::Block(pluginExtraArch)>>
 {{ file.Block "pluginExtraArch" }}
       ## <</Stencil::Block>>
@@ -29,6 +31,7 @@ builds:
       - linux
       - darwin
       - windows
+      # Add extra OS targets to build (e.g. "freebsd", "openbsd"). Defaults: linux, darwin, windows.
       ## <<Stencil::Block(pluginExtraOS)>>
 {{ file.Block "pluginExtraOS" }}
       ## <</Stencil::Block>>
