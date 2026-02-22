@@ -1,4 +1,4 @@
-version: 2.9.1
+version: 2.13.0
 modules:
     - name: github.com/udemy/eng-team-management
       url: https://github.com/udemy/eng-team-management
