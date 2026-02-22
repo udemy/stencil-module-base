@@ -8,14 +8,14 @@ on:
       - synchronize
   push:
     branches:
-      - "main"
+      - 'main'
     paths:
-      - "stencil.yaml"
-      - "manifest.yaml"
-      - ".mise.toml"
-      - ".github/workflows/build-release.yml"
-      - "templates/**"
-      - "tests/**"
+      - 'stencil.yaml'
+      - 'manifest.yaml'
+      - '.mise.toml'
+      - '.github/workflows/build-release.yml'
+      - 'templates/**'
+      - 'tests/**'
 
 jobs:
   build-and-test:
@@ -51,9 +51,10 @@ jobs:
         uses: rgst-io/stencil-action@34abb7be7ca3847f233bd9c38f1da71b30556c35
         with:
           github-token: ${{ github.token }}
-          version: "latest"
+          version: 'latest'
       # Add auth steps for build/test here (e.g. login to private registry).
       ## <<Stencil::Block(buildtestauth)>>
+
       ## <</Stencil::Block>>
       - name: Build Test repo
         run: mise run buildtest
